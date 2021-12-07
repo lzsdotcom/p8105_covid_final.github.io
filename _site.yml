@@ -1,0 +1,35 @@
+name: "Site yml"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "Report"
+      href: report.html
+    - text: "Exploratory"
+      menu:
+        - text: "COVID Case and Death Rates"
+        - text: "United States"
+          href: covid_pre_post_vacc.html
+        - text: "New York State"
+          href: ny_covid_pre_post_vax.html
+        - text: "New York City"
+          href: nyc_covid_pre_post_vax.html
+        - text: "Projected"
+          href: case death.html
+        - text: "---------"
+        - text: "Vaccination Rates"
+        - text: "Page C"
+          href: page-c.html
+        - text: "Page D"
+          href: page-d.html
+        - text: "---------"
+        - text: "Vaccination Hesitancy"
+        - text: "Page C"
+          href: page-c.html
+        - text: "Page D"
+          href: page-d.html
+
+
+output:
+  html_document:
+    theme: cerulean
