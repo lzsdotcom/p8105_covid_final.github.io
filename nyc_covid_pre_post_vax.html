@@ -409,8 +409,6 @@ options(
 
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d</code></pre>
-<div id="data" class="section level2">
-<h2>Data</h2>
 <pre class="r"><code>#nyc_covid = 
 #  read_csv(&quot;./us-counties.csv&quot;) %&gt;% 
 #  filter(county == &quot;New York City&quot;) %&gt;% 
@@ -420,7 +418,7 @@ scale_fill_discrete = scale_fill_viridis_d</code></pre>
 #  write_csv(&quot;./nyc_covid.csv&quot;) Original data set was almost 80 MB in size
 
 nyc_covid = read_csv(&quot;./data/nyc_covid.csv&quot;)</code></pre>
-</div>
+<p>In order to investigate the effect that vaccine release had on the trajectory of the pandemic, we first had to separate our data into pre-vaccine and post-vaccine dates. The date 12/14/20 was used as the date when vaccines became available in the U.S. Date was converted to “day of pandemic” in order to fit a line of best fit on a numeric variable instead of YYYY-MM-DD date format. The data from NY Times consisted of cumulative case and death counts, and from this we first looked at the death to case ratio curve overall, then separated into pre- and post-vaccine availability to see whether the presence of a vaccine changed the death/case ratio. Below is a look at that data for the the state of New York specifically.</p>
 <div id="deathcase-ratio" class="section level2">
 <h2>Death/Case Ratio</h2>
 <pre class="r"><code>total_ratio_p = 
@@ -452,6 +450,7 @@ post_vacc_ratio_p =
 
 total_ratio_p / (pre_vacc_ratio_p + post_vacc_ratio_p)</code></pre>
 <p><img src="nyc_covid_pre_post_vax_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<p>The death to case ratio data and plots for NYC is nearly identical to that of the state as a whole, except that NYC death to case ratio tops out at slightly higher than 10% compared to the state’s at around 8. This makes sense being that the city is so densely populated, more deaths from COVID cases were likely to have occurred there when compared to less densely populated cities in other parts of the state. The fact that the data and curves are nearly identical also makes sense being that NYC was probably the largest contributor to the data, being that the majority of the state’s population is concentrated in this metropolitan area.</p>
 </div>
 <div id="cases" class="section level2">
 <h2>Cases</h2>
@@ -498,6 +497,7 @@ post_vacc_case_p =
 
 total_nyc_case_p / (pre_vacc_case_p + post_vacc_case_p)</code></pre>
 <p><img src="nyc_covid_pre_post_vax_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
+<p>Although the numbers on the y-axis are less than the states (for obvious reasons), the curves are nearly identical again between the city and the state, and the number of cases in the city is roughly 40% of all the cases in the state. This means that NYC is the largest driver and generator of the case data in the entire state, which explains why the curves are similar. For example, looking at day 300 between the city and the state, we can see that the city accounts for about 400,000 cases of the roughly 1 million in the state. For this reason, the trends between the city and the state are bound to be fairly similar because of the big contribution the city is making in terms of overall data points.</p>
 </div>
 <div id="deaths" class="section level2">
 <h2>Deaths</h2>
@@ -544,6 +544,7 @@ post_vacc_death_p =
 
 total_nyc_death_p / (pre_vacc_death_p + post_vacc_death_p)</code></pre>
 <p><img src="nyc_covid_pre_post_vax_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+<p>Again, a similar phenomenon seen with the cases is occurring with the deaths between the city of New York and the state. This time, however, the city is contributing even more data points to the overall data set, at maybe 60-75%. The biggest difference that we do see is that there is a higher reduction in deaths after vaccine availability in the city as opposed to the rest of the state, possibly indicating higher vaccine uptake, or more stringent adherence to the mandates and guidelines. One would speculate that in a city so densely populated and stratified in terms of wealth (with nearly 1/3 at or below the poverty line) that the rate of deaths would increase in the city compared to the state. Instead, we see the opposite, that the rate of deaths after the vaccine becomes available is less than a third of what it was before in the city, while in the state it is still slighly above a third.</p>
 </div>
 <div id="slopes" class="section level2">
 <h2>Slopes</h2>
