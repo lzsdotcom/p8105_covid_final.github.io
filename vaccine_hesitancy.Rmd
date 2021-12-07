@@ -1,0 +1,131 @@
+---
+title: "COVID-19 Vaccine Hesitancy"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(readr)
+library(rvest)
+library(httr)
+library(lubridate)
+library(patchwork)
+library(leaflet)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+The CDC provides data on vaccine hesitancy at the state level using the U.S. Census Bureau’s Household Pulse Survey (HPS). Using this dataset provides we can describe trends in vaccine hesitancy across the United States. Results from this section can help to shed light on the important questions of what factors are associated with vaccine hesitancy, how vaccine hesitancy has affected vaccine uptake, and subsequently the trajectory of the pandemic.
+
+## Vaccine hesitancy
+
+## Factors associated with vaccine hesitancy
+
+```{r}
+hesitancy <- GET("https://data.cdc.gov/resource/q9mh-h2tw.csv") %>%
+  content("parsed")
+
+vaccine_hesitancy = hesitancy %>% 
+  mutate(
+    svi_category = as.factor(svi_category),
+    svi_category = factor(svi_category, levels = c("Very Low Vulnerability", "Low Vulnerability", "Moderate Vulnerability", "High Vulnerability", "Very High Vulnerability"))
+  )
+```
+
+Mean hesitancy by state
+```{r}
+vaccine_hesitancy %>% 
+  group_by(state) %>% 
+  summarize(
+    hesitant = mean(estimated_hesitant)
+  )
+```
+
+Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)
+
+```{r}
+vaccine_hesitancy %>% 
+  ggplot(aes(x = reorder(state, -estimated_hesitant), y = estimated_hesitant)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+Mean STRONGLY hesitancy by state
+```{r}
+vaccine_hesitancy %>% 
+  group_by(state) %>% 
+  summarize(
+    hesitant = mean(estimated_strongly_hesitant)
+  )
+```
+
+Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)
+
+```{r}
+vaccine_hesitancy %>% 
+  ggplot(aes(x = reorder(state, -estimated_strongly_hesitant), y = estimated_strongly_hesitant)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+
+Plot of vaccine hesitancy percent vs. social vulnerability index
+
+```{r}
+hesitant_plot = vaccine_hesitancy %>% 
+  ggplot(aes(x = svi_category, y = estimated_hesitant)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+strongly_hesitant_plot = vaccine_hesitancy %>% 
+  ggplot(aes(x = svi_category, y = estimated_strongly_hesitant)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+hesitant_plot + strongly_hesitant_plot
+
+```
+
+Linear regression
+
+```{r}
+fit = lm(estimated_hesitant ~ social_vulnerability_index + percent_non_hispanic_white, data = vaccine_hesitancy)
+
+broom::tidy(fit)
+
+fit2 = lm(estimated_strongly_hesitant ~ social_vulnerability_index + percent_non_hispanic_white, data = vaccine_hesitancy)
+
+broom::tidy(fit2)
+```
+
+Adjust race variable
+
+```{r}
+vaccine_hesitancy_race = vaccine_hesitancy %>% 
+  pivot_longer(
+    percent_hispanic:percent_non_hispanic_white,
+    names_to = "race",
+    names_prefix = "percent_",
+    values_to = "race_percent")
+```
+
+

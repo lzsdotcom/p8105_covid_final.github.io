@@ -8,6 +8,10 @@ navbar:
     - text: "Exploratory"
       menu:
         - text: "COVID Case and Death Rates"
+        - text: "By Sex"
+          href: covid_deaths_bysex.html
+        - text: "By Race/Education"
+          href: covid_deaths_by_race_education.html
         - text: "United States"
           href: covid_pre_post_vacc.html
         - text: "New York State"
@@ -17,17 +21,15 @@ navbar:
         - text: "Projected"
           href: case death.html
         - text: "---------"
+        - text: "Vaccination Data"
+        - text: "Vaccine Distribution/Uptake"
+          href: vaccine_distribution_uptake.html
         - text: "Vaccination Rates"
-        - text: "Page C"
-          href: page-c.html
-        - text: "Page D"
-          href: page-d.html
-        - text: "---------"
+          href: percent_vax_eth-race.html
         - text: "Vaccination Hesitancy"
-        - text: "Page C"
-          href: page-c.html
-        - text: "Page D"
-          href: page-d.html
+          href: vaccine_hesitancy.html
+        - text: "Vaccination Hesitancy 2"
+          href: percent_hesitant.html
 
 
 output:
