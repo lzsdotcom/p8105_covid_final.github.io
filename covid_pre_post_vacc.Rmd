@@ -35,7 +35,7 @@ us_covid = read_csv("./data/us.csv") %>%
          dc_ratio = deaths/cases)
 ```
 
-In order to investigate the effect that vaccine release had on the trajectory of the pandemic, we first had to separate our data into pre-vaccine and post-vaccine dates. The date 12/14/20 was used as the date when vaccines became available in the U.S. Date was converted to "day of pandemic" in order to fit a line of best fit on a numeric variable instead of YYYY-MM-DD date format. The data from NY Times consisted of cumulative case and death counts, and from this we first looked at the death to case ratio curve overall, then separated into pre- and post-vaccine availability to see whether the presence of a vaccine changed the death/case ratio.
+In order to investigate the effect that vaccine release had on the trajectory of the pandemic, we first had to separate our data into pre-vaccine and post-vaccine dates. The date 12/14/20 was used as the date when vaccines became available in the U.S. Date was converted to "day of pandemic" in order to fit a line of best fit on a numeric variable instead of YYYY-MM-DD date format. The data from NY Times consisted of cumulative case and death counts, and from this we first looked at the death to case ratio curve overall, then separated into pre- and post-vaccine availability to see whether the presence of a vaccine changed the death/case ratio. Below is a look at that data for the entire United States.
 
 ## Death/Case Ratio
 

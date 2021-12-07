@@ -28,8 +28,6 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
-## Data
-
 ```{r, message = F}
 ny_covid = 
   read_csv("./data/us-states.csv") %>% 
@@ -38,6 +36,8 @@ ny_covid =
          dc_ratio = deaths/cases) %>% 
   select(-fips)
 ```
+
+In order to investigate the effect that vaccine release had on the trajectory of the pandemic, we first had to separate our data into pre-vaccine and post-vaccine dates. The date 12/14/20 was used as the date when vaccines became available in the U.S. Date was converted to "day of pandemic" in order to fit a line of best fit on a numeric variable instead of YYYY-MM-DD date format. The data from NY Times consisted of cumulative case and death counts, and from this we first looked at the death to case ratio curve overall, then separated into pre- and post-vaccine availability to see whether the presence of a vaccine changed the death/case ratio. Below is a look at that data for the the state of New York specifically.
 
 ## Death/Case Ratio
 
@@ -71,6 +71,8 @@ post_vacc_ratio_p =
 
 total_ratio_p / (pre_vacc_ratio_p + post_vacc_ratio_p)
 ```
+
+The cases and deaths in New York state do not seem to occur until March, which is delayed by over a month from the rest of the United States data. As such, there is no spike at the very beginning, but there is a large increase from 0 to 8 percent in the death to case ratio. Again, this is likely due to lack of any unifying knowledge about the virus or the pandemic, allowing it to spread freely. At this point in time, it was just beginning to be understood what in fact was going on. More drastically than the whole U.S. data though, around the winter-time when cases were spiking and at an all time high, the death to case ratio was dropping in New York state, and continued to drop after the availability of a vaccine. Although vaccine uptake was obviously not 100% in NY, it was better than the national average, and as such caused the ratio to continue to drop, as it was not confounded by states with poor vaccine uptake like the United States data. We can see from the post-vaccine ratio curve that after the vaccine was released, the death to case ratio continued to drop to the present and never experienced a second upward trend. This reduction in deaths from COVID cases may well be attributed to the effects of the vaccine and its availability.
 
 ## Cases
 
@@ -119,6 +121,8 @@ post_vacc_case_p =
 total_ny_case_p / (pre_vacc_case_p + post_vacc_case_p)
 ```
 
+As with the United States data, looking at the slops for the lines of best fit for cases, we can see that the rate of cases did continue even after the vaccine's availability. Whether this is because of poor vaccine uptake or effectiveness will be investigated in the vaccination data pages, but the post-vaccination to pre-vaccination case ratio is significantly less in New York state than in the United States at large (1.39 vs 1.77) indicating that New York state fared better than the U.S. as a whole when it came to the rate of cases after the vaccine's availability. Again, whether this difference is due to differences in vaccine uptake will be investigated. Visually however, the spike of cases seen during the winter season, around when the vaccine was first released, did not seem to replicate itself after its availability in the state of New York. Again, whether that was due to the vaccine's availability itself, seasonal factors, or others is a matter of conjecture and debate.
+
 ## Deaths
 
 ```{r}
@@ -165,6 +169,8 @@ post_vacc_death_p =
 
 total_ny_death_p / (pre_vacc_death_p + post_vacc_death_p)
 ```
+
+One thing that can be relayed from the plots of deaths and death rate in New York state is that the vaccine's availability did reduce the slope of the line of best fit, and therefore the reduction in COVID deaths post-vaccine release mat be attributable to the vaccine itself. Unlike the United States data, which was likely confounded by states with poor vaccine uptake and high vaccine hesitancy, New York state saw a drop in the amount of cases per day after the vaccine became available, according to the slops of these lines of fit. We will attempt to corroborate this finding with vaccine uptake data by state in the coming pages. Again, comparing the ratio of post-vaccine deaths to pre-vaccine deaths from New York to the United States as a whole, we see that in NY this ratio is 0.39 vs 1.14. This means that New York states experienced 39% the amount of deaths after the vaccine became available, or a 61% drop in deaths from COVID as opposed to the United States at large, which experienced 114% the deaths from COVID after the vaccine was relased. Essentially, even with a vaccine available to the population, deaths increased by 14% across the United States due to COVID. We'll see if a disparity in vaccine uptake between New York and the rest of the country is the reason for this big difference.
 
 ## Slopes
 
