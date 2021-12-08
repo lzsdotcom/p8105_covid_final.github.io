@@ -19,7 +19,7 @@ navbar:
         - text: "New York City"
           href: nyc_covid_pre_post_vax.html
         - text: "Projected"
-          href: case death.html
+          href: case-death.html
         - text: "---------"
         - text: "Vaccination Data"
         - text: "Vaccine Distribution/Uptake"
@@ -28,8 +28,8 @@ navbar:
           href: vaccination_rate.html
         - text: "Vaccination Hesitancy"
           href: vaccine_hesitancy.html
-        - text: "Vaccination Hesitancy 2"
-          href: percent_hesitant.html
+        - text: "Vaccination Hesitancy Maps"
+          href: vax-hesitancy-maps.html
 
 
 output:

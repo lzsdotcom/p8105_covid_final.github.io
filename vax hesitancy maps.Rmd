@@ -1,8 +1,10 @@
 ---
 title: "hesitancy maps"
-author: "Kaila Boyer"
-date: "12/7/2021"
-output: html_document
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
 ---
 
 ```{r}
