@@ -13,8 +13,8 @@
 
 <title>COVID-19 Vaccine Hesitancy</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -397,73 +397,478 @@ div.tocify {
 </div>
 <div id="factors-associated-with-vaccine-hesitancy" class="section level2">
 <h2>Factors associated with vaccine hesitancy</h2>
-<pre class="r"><code>hesitancy &lt;- GET(&quot;https://data.cdc.gov/resource/q9mh-h2tw.csv&quot;) %&gt;%
-  content(&quot;parsed&quot;)</code></pre>
-<pre><code>## Rows: 1000 Columns: 21</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (8): county_name, state, svi_category, cvac_category, geographical_poin...
-## dbl (13): fips_code, estimated_hesitant, estimated_hesitant_or_unsure, estim...</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>vaccine_hesitancy = hesitancy %&gt;% 
-  mutate(
-    svi_category = as.factor(svi_category),
-    svi_category = factor(svi_category, levels = c(&quot;Very Low Vulnerability&quot;, &quot;Low Vulnerability&quot;, &quot;Moderate Vulnerability&quot;, &quot;High Vulnerability&quot;, &quot;Very High Vulnerability&quot;))
-  )</code></pre>
 <p>Mean hesitancy by state</p>
 <pre class="r"><code>vaccine_hesitancy %&gt;% 
   group_by(state) %&gt;% 
+  mutate(state = str_to_title(state)) %&gt;% 
+  rename(State = state) %&gt;% 
   summarize(
-    hesitant = mean(estimated_hesitant)
-  )</code></pre>
-<pre><code>## # A tibble: 31 × 2
-##    state                hesitant
-##    &lt;chr&gt;                   &lt;dbl&gt;
-##  1 ALABAMA                0.174 
-##  2 ALASKA                 0.217 
-##  3 ARIZONA                0.159 
-##  4 ARKANSAS               0.212 
-##  5 CALIFORNIA             0.0723
-##  6 COLORADO               0.0782
-##  7 CONNECTICUT            0.0570
-##  8 DELAWARE               0.0594
-##  9 DISTRICT OF COLUMBIA   0.0655
-## 10 FLORIDA                0.145 
-## # … with 21 more rows</code></pre>
+    Hesitant = mean(estimated_hesitant)
+  ) %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">State</th>
+<th align="right">Hesitant</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alabama</td>
+<td align="right">0.1735075</td>
+</tr>
+<tr class="even">
+<td align="left">Alaska</td>
+<td align="right">0.2173862</td>
+</tr>
+<tr class="odd">
+<td align="left">Arizona</td>
+<td align="right">0.1592400</td>
+</tr>
+<tr class="even">
+<td align="left">Arkansas</td>
+<td align="right">0.2121227</td>
+</tr>
+<tr class="odd">
+<td align="left">California</td>
+<td align="right">0.0722741</td>
+</tr>
+<tr class="even">
+<td align="left">Colorado</td>
+<td align="right">0.0782203</td>
+</tr>
+<tr class="odd">
+<td align="left">Connecticut</td>
+<td align="right">0.0569875</td>
+</tr>
+<tr class="even">
+<td align="left">Delaware</td>
+<td align="right">0.0594333</td>
+</tr>
+<tr class="odd">
+<td align="left">District Of Columbia</td>
+<td align="right">0.0655000</td>
+</tr>
+<tr class="even">
+<td align="left">Florida</td>
+<td align="right">0.1452119</td>
+</tr>
+<tr class="odd">
+<td align="left">Georgia</td>
+<td align="right">0.1618151</td>
+</tr>
+<tr class="even">
+<td align="left">Hawaii</td>
+<td align="right">0.0595000</td>
+</tr>
+<tr class="odd">
+<td align="left">Idaho</td>
+<td align="right">0.1920227</td>
+</tr>
+<tr class="even">
+<td align="left">Illinois</td>
+<td align="right">0.0960853</td>
+</tr>
+<tr class="odd">
+<td align="left">Indiana</td>
+<td align="right">0.1314652</td>
+</tr>
+<tr class="even">
+<td align="left">Iowa</td>
+<td align="right">0.1262646</td>
+</tr>
+<tr class="odd">
+<td align="left">Kansas</td>
+<td align="right">0.1516476</td>
+</tr>
+<tr class="even">
+<td align="left">Kentucky</td>
+<td align="right">0.1958492</td>
+</tr>
+<tr class="odd">
+<td align="left">Louisiana</td>
+<td align="right">0.1897188</td>
+</tr>
+<tr class="even">
+<td align="left">Maine</td>
+<td align="right">0.0956562</td>
+</tr>
+<tr class="odd">
+<td align="left">Maryland</td>
+<td align="right">0.0760167</td>
+</tr>
+<tr class="even">
+<td align="left">Massachusetts</td>
+<td align="right">0.0462786</td>
+</tr>
+<tr class="odd">
+<td align="left">Michigan</td>
+<td align="right">0.0996313</td>
+</tr>
+<tr class="even">
+<td align="left">Minnesota</td>
+<td align="right">0.0778862</td>
+</tr>
+<tr class="odd">
+<td align="left">Mississippi</td>
+<td align="right">0.1825317</td>
+</tr>
+<tr class="even">
+<td align="left">Missouri</td>
+<td align="right">0.1502278</td>
+</tr>
+<tr class="odd">
+<td align="left">Montana</td>
+<td align="right">0.2513857</td>
+</tr>
+<tr class="even">
+<td align="left">Nebraska</td>
+<td align="right">0.0867882</td>
+</tr>
+<tr class="odd">
+<td align="left">Nevada</td>
+<td align="right">0.1324235</td>
+</tr>
+<tr class="even">
+<td align="left">New Hampshire</td>
+<td align="right">0.1035400</td>
+</tr>
+<tr class="odd">
+<td align="left">New Jersey</td>
+<td align="right">0.0496952</td>
+</tr>
+<tr class="even">
+<td align="left">New Mexico</td>
+<td align="right">0.0782242</td>
+</tr>
+<tr class="odd">
+<td align="left">New York</td>
+<td align="right">0.0717855</td>
+</tr>
+<tr class="even">
+<td align="left">North Carolina</td>
+<td align="right">0.1359130</td>
+</tr>
+<tr class="odd">
+<td align="left">North Dakota</td>
+<td align="right">0.1365208</td>
+</tr>
+<tr class="even">
+<td align="left">Ohio</td>
+<td align="right">0.1456568</td>
+</tr>
+<tr class="odd">
+<td align="left">Oklahoma</td>
+<td align="right">0.1940455</td>
+</tr>
+<tr class="even">
+<td align="left">Oregon</td>
+<td align="right">0.1126889</td>
+</tr>
+<tr class="odd">
+<td align="left">Pennsylvania</td>
+<td align="right">0.1188567</td>
+</tr>
+<tr class="even">
+<td align="left">Rhode Island</td>
+<td align="right">0.0664200</td>
+</tr>
+<tr class="odd">
+<td align="left">South Carolina</td>
+<td align="right">0.1432870</td>
+</tr>
+<tr class="even">
+<td align="left">South Dakota</td>
+<td align="right">0.1125742</td>
+</tr>
+<tr class="odd">
+<td align="left">Tennessee</td>
+<td align="right">0.1383884</td>
+</tr>
+<tr class="even">
+<td align="left">Texas</td>
+<td align="right">0.1198110</td>
+</tr>
+<tr class="odd">
+<td align="left">Utah</td>
+<td align="right">0.1172448</td>
+</tr>
+<tr class="even">
+<td align="left">Vermont</td>
+<td align="right">0.0402643</td>
+</tr>
+<tr class="odd">
+<td align="left">Virginia</td>
+<td align="right">0.0631105</td>
+</tr>
+<tr class="even">
+<td align="left">Washington</td>
+<td align="right">0.0779128</td>
+</tr>
+<tr class="odd">
+<td align="left">West Virginia</td>
+<td align="right">0.1014527</td>
+</tr>
+<tr class="even">
+<td align="left">Wisconsin</td>
+<td align="right">0.1529444</td>
+</tr>
+<tr class="odd">
+<td align="left">Wyoming</td>
+<td align="right">0.2177609</td>
+</tr>
+</tbody>
+</table>
 <p>Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)</p>
 <pre class="r"><code>vaccine_hesitancy %&gt;% 
   ggplot(aes(x = reorder(state, -estimated_hesitant), y = estimated_hesitant)) +
   geom_boxplot() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))</code></pre>
 <p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<pre class="r"><code>vaccine_hesitancy %&gt;% 
+  mutate(state = str_to_title(state)) %&gt;% 
+  ggplot(aes(x = reorder(state, -estimated_hesitant), y = estimated_hesitant)) +
+  geom_boxplot(width = 0.5) +
+  xlab(&quot;State&quot;) + 
+  ylab(&quot;Estimated Hesitancy&quot;) + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))</code></pre>
+<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
 <p>Mean STRONGLY hesitancy by state</p>
 <pre class="r"><code>vaccine_hesitancy %&gt;% 
   group_by(state) %&gt;% 
+  mutate(state = str_to_title(state)) %&gt;% 
+  rename(State = state) %&gt;% 
   summarize(
-    hesitant = mean(estimated_strongly_hesitant)
-  )</code></pre>
-<pre><code>## # A tibble: 31 × 2
-##    state                hesitant
-##    &lt;chr&gt;                   &lt;dbl&gt;
-##  1 ALABAMA                0.132 
-##  2 ALASKA                 0.157 
-##  3 ARIZONA                0.121 
-##  4 ARKANSAS               0.140 
-##  5 CALIFORNIA             0.0358
-##  6 COLORADO               0.0473
-##  7 CONNECTICUT            0.0315
-##  8 DELAWARE               0.0348
-##  9 DISTRICT OF COLUMBIA   0.0403
-## 10 FLORIDA                0.0972
-## # … with 21 more rows</code></pre>
+    Hesitant = mean(estimated_strongly_hesitant)
+  ) %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">State</th>
+<th align="right">Hesitant</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alabama</td>
+<td align="right">0.1324090</td>
+</tr>
+<tr class="even">
+<td align="left">Alaska</td>
+<td align="right">0.1569069</td>
+</tr>
+<tr class="odd">
+<td align="left">Arizona</td>
+<td align="right">0.1213533</td>
+</tr>
+<tr class="even">
+<td align="left">Arkansas</td>
+<td align="right">0.1399013</td>
+</tr>
+<tr class="odd">
+<td align="left">California</td>
+<td align="right">0.0358069</td>
+</tr>
+<tr class="even">
+<td align="left">Colorado</td>
+<td align="right">0.0472750</td>
+</tr>
+<tr class="odd">
+<td align="left">Connecticut</td>
+<td align="right">0.0315125</td>
+</tr>
+<tr class="even">
+<td align="left">Delaware</td>
+<td align="right">0.0348333</td>
+</tr>
+<tr class="odd">
+<td align="left">District Of Columbia</td>
+<td align="right">0.0403000</td>
+</tr>
+<tr class="even">
+<td align="left">Florida</td>
+<td align="right">0.0972075</td>
+</tr>
+<tr class="odd">
+<td align="left">Georgia</td>
+<td align="right">0.1031195</td>
+</tr>
+<tr class="even">
+<td align="left">Hawaii</td>
+<td align="right">0.0317400</td>
+</tr>
+<tr class="odd">
+<td align="left">Idaho</td>
+<td align="right">0.1256932</td>
+</tr>
+<tr class="even">
+<td align="left">Illinois</td>
+<td align="right">0.0592275</td>
+</tr>
+<tr class="odd">
+<td align="left">Indiana</td>
+<td align="right">0.0826815</td>
+</tr>
+<tr class="even">
+<td align="left">Iowa</td>
+<td align="right">0.0758818</td>
+</tr>
+<tr class="odd">
+<td align="left">Kansas</td>
+<td align="right">0.0931286</td>
+</tr>
+<tr class="even">
+<td align="left">Kentucky</td>
+<td align="right">0.1294242</td>
+</tr>
+<tr class="odd">
+<td align="left">Louisiana</td>
+<td align="right">0.1169953</td>
+</tr>
+<tr class="even">
+<td align="left">Maine</td>
+<td align="right">0.0785625</td>
+</tr>
+<tr class="odd">
+<td align="left">Maryland</td>
+<td align="right">0.0402542</td>
+</tr>
+<tr class="even">
+<td align="left">Massachusetts</td>
+<td align="right">0.0336857</td>
+</tr>
+<tr class="odd">
+<td align="left">Michigan</td>
+<td align="right">0.0613145</td>
+</tr>
+<tr class="even">
+<td align="left">Minnesota</td>
+<td align="right">0.0419644</td>
+</tr>
+<tr class="odd">
+<td align="left">Mississippi</td>
+<td align="right">0.1254244</td>
+</tr>
+<tr class="even">
+<td align="left">Missouri</td>
+<td align="right">0.0904000</td>
+</tr>
+<tr class="odd">
+<td align="left">Montana</td>
+<td align="right">0.1708304</td>
+</tr>
+<tr class="even">
+<td align="left">Nebraska</td>
+<td align="right">0.0535054</td>
+</tr>
+<tr class="odd">
+<td align="left">Nevada</td>
+<td align="right">0.0715235</td>
+</tr>
+<tr class="even">
+<td align="left">New Hampshire</td>
+<td align="right">0.0679000</td>
+</tr>
+<tr class="odd">
+<td align="left">New Jersey</td>
+<td align="right">0.0337143</td>
+</tr>
+<tr class="even">
+<td align="left">New Mexico</td>
+<td align="right">0.0417000</td>
+</tr>
+<tr class="odd">
+<td align="left">New York</td>
+<td align="right">0.0504532</td>
+</tr>
+<tr class="even">
+<td align="left">North Carolina</td>
+<td align="right">0.1049470</td>
+</tr>
+<tr class="odd">
+<td align="left">North Dakota</td>
+<td align="right">0.0933113</td>
+</tr>
+<tr class="even">
+<td align="left">Ohio</td>
+<td align="right">0.0879420</td>
+</tr>
+<tr class="odd">
+<td align="left">Oklahoma</td>
+<td align="right">0.1348753</td>
+</tr>
+<tr class="even">
+<td align="left">Oregon</td>
+<td align="right">0.0850028</td>
+</tr>
+<tr class="odd">
+<td align="left">Pennsylvania</td>
+<td align="right">0.0788045</td>
+</tr>
+<tr class="even">
+<td align="left">Rhode Island</td>
+<td align="right">0.0497600</td>
+</tr>
+<tr class="odd">
+<td align="left">South Carolina</td>
+<td align="right">0.0806370</td>
+</tr>
+<tr class="even">
+<td align="left">South Dakota</td>
+<td align="right">0.0815485</td>
+</tr>
+<tr class="odd">
+<td align="left">Tennessee</td>
+<td align="right">0.0872611</td>
+</tr>
+<tr class="even">
+<td align="left">Texas</td>
+<td align="right">0.0800327</td>
+</tr>
+<tr class="odd">
+<td align="left">Utah</td>
+<td align="right">0.0721724</td>
+</tr>
+<tr class="even">
+<td align="left">Vermont</td>
+<td align="right">0.0216714</td>
+</tr>
+<tr class="odd">
+<td align="left">Virginia</td>
+<td align="right">0.0433083</td>
+</tr>
+<tr class="even">
+<td align="left">Washington</td>
+<td align="right">0.0566590</td>
+</tr>
+<tr class="odd">
+<td align="left">West Virginia</td>
+<td align="right">0.0776200</td>
+</tr>
+<tr class="even">
+<td align="left">Wisconsin</td>
+<td align="right">0.0911097</td>
+</tr>
+<tr class="odd">
+<td align="left">Wyoming</td>
+<td align="right">0.1587217</td>
+</tr>
+</tbody>
+</table>
 <p>Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)</p>
 <pre class="r"><code>vaccine_hesitancy %&gt;% 
   ggplot(aes(x = reorder(state, -estimated_strongly_hesitant), y = estimated_strongly_hesitant)) +
   geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))</code></pre>
-<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) </code></pre>
+<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-6-1.png" width="90%" /></p>
+<pre class="r"><code>vaccine_hesitancy %&gt;% 
+  mutate(state = str_to_title(state)) %&gt;% 
+  ggplot(aes(x = reorder(state, -estimated_strongly_hesitant), y = estimated_strongly_hesitant)) +
+  geom_boxplot(width = 0.5) +
+  xlab(&quot;State&quot;) + 
+  ylab(&quot;Estimated Strongly Hesitant&quot;) + 
+  coord_flip()</code></pre>
+<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
 <p>Plot of vaccine hesitancy percent vs. social vulnerability index</p>
 <pre class="r"><code>hesitant_plot = vaccine_hesitancy %&gt;% 
   ggplot(aes(x = svi_category, y = estimated_hesitant)) +
@@ -476,26 +881,51 @@ strongly_hesitant_plot = vaccine_hesitancy %&gt;%
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 hesitant_plot + strongly_hesitant_plot</code></pre>
-<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-6-1.png" width="90%" /></p>
+<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
+<pre class="r"><code>#below line makes it so svi labels are on different lines 
+levels(vaccine_hesitancy$svi_category) &lt;- gsub(&quot; &quot;, &quot;\n&quot;, levels(vaccine_hesitancy$svi_category))
+
+hesitant_plot = vaccine_hesitancy %&gt;% 
+  na.omit() %&gt;% 
+  ggplot(aes(x = svi_category, y = estimated_hesitant)) +
+  geom_boxplot() +
+  xlab(&quot;SVI Category&quot;) + 
+  ylab(&quot;Estimated Hesitant&quot;) + 
+  theme(title = element_text(hjust = 0.5) ) +
+  ggtitle(&quot;Estimated Vaccine Hesitancy&quot;)
+
+
+strongly_hesitant_plot = vaccine_hesitancy %&gt;% 
+  na.omit() %&gt;% 
+  ggplot(aes(x = svi_category, y = estimated_strongly_hesitant)) +
+  geom_boxplot() + 
+  xlab(&quot;SVI Category&quot;) + 
+  ylab(&quot;Estimated Strongly Hesitant&quot;) + 
+  theme(title = element_text(hjust = 0.5) ) + 
+  ggtitle(&quot;Estimated Strong Vaccine Hesitancy&quot;)
+
+library(patchwork)
+hesitant_plot +  strongly_hesitant_plot </code></pre>
+<p><img src="vaccine_hesitancy_files/figure-html/unnamed-chunk-9-1.png" width="90%" /></p>
 <p>Linear regression</p>
-<pre class="r"><code>fit = lm(estimated_hesitant ~ social_vulnerability_index + percent_non_hispanic_white, data = vaccine_hesitancy)
+<pre class="r"><code>fit = lm(estimated_hesitant ~ social_vulnerability_index_svi + percent_non_hispanic_white, data = vaccine_hesitancy)
 
 broom::tidy(fit)</code></pre>
 <pre><code>## # A tibble: 3 × 5
-##   term                       estimate std.error statistic  p.value
-##   &lt;chr&gt;                         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)                  0.0463   0.00843      5.48 5.26e- 8
-## 2 social_vulnerability_index   0.0853   0.00604     14.1  2.08e-41
-## 3 percent_non_hispanic_white   0.0597   0.00829      7.19 1.24e-12</code></pre>
-<pre class="r"><code>fit2 = lm(estimated_strongly_hesitant ~ social_vulnerability_index + percent_non_hispanic_white, data = vaccine_hesitancy)
+##   term                           estimate std.error statistic  p.value
+##   &lt;chr&gt;                             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)                      0.0474   0.00499      9.50 4.11e-21
+## 2 social_vulnerability_index_svi   0.0728   0.00339     21.5  1.99e-95
+## 3 percent_non_hispanic_white       0.0640   0.00486     13.2  1.21e-38</code></pre>
+<pre class="r"><code>fit2 = lm(estimated_strongly_hesitant ~ social_vulnerability_index_svi + percent_non_hispanic_white, data = vaccine_hesitancy)
 
 broom::tidy(fit2)</code></pre>
 <pre><code>## # A tibble: 3 × 5
-##   term                       estimate std.error statistic  p.value
-##   &lt;chr&gt;                         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)                  0.0274   0.00628      4.36 1.41e- 5
-## 2 social_vulnerability_index   0.0619   0.00449     13.8  1.11e-39
-## 3 percent_non_hispanic_white   0.0383   0.00617      6.20 8.34e-10</code></pre>
+##   term                           estimate std.error statistic  p.value
+##   &lt;chr&gt;                             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)                      0.0287   0.00354      8.09 8.48e-16
+## 2 social_vulnerability_index_svi   0.0522   0.00241     21.7  3.80e-97
+## 3 percent_non_hispanic_white       0.0419   0.00345     12.1  3.27e-33</code></pre>
 <p>Adjust race variable</p>
 <pre class="r"><code>vaccine_hesitancy_race = vaccine_hesitancy %&gt;% 
   pivot_longer(
