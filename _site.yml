@@ -23,9 +23,9 @@ navbar:
         - text: "---------"
         - text: "Vaccination Data"
         - text: "Vaccine Distribution/Uptake"
-          href: vaccine_distribution_uptake.html
+          href: vaccine_distribution.html
         - text: "Vaccination Rates"
-          href: percent_vax_eth-race.html
+          href: vaccination_rate.html
         - text: "Vaccination Hesitancy"
           href: vaccine_hesitancy.html
         - text: "Vaccination Hesitancy 2"
