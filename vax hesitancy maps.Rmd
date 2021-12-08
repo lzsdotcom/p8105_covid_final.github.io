@@ -1,0 +1,135 @@
+---
+title: "hesitancy maps"
+author: "Kaila Boyer"
+date: "12/7/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(readr)
+library(rvest)
+library(httr)
+library(lubridate)
+
+knitr::opts_chunk$set(
+  fig.width = 7,
+  fig.asp = .7,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis",
+  scale_colour_discrete = scale_colour_viridis_d,
+scale_fill_discrete = scale_fill_viridis_d
+)
+```
+
+```{r, include = FALSE, message = FALSE }
+pt1 <- read_csv("hesitant_vax_data_pt1.csv")
+pt2 <- read_csv("hesitant_vax_data_pt2.csv")
+pt3 <- read_csv("hesitant_vax_data_pt3.csv")
+pt4 <- read_csv("hesitant_vax_data_pt4.csv")
+pt5 <- read_csv("hesitant_vax_data_pt5.csv")
+pt6 <- read_csv("hesitant_vax_data_pt6.csv")
+pt7 <- read_csv("hesitant_vax_data_pt7.csv")
+
+data_all <- bind_rows(pt1, pt2, pt3, pt4, pt5, pt6, pt7)
+#glimpse(data_all)
+```
+
+```{r, message = FALSE, include= FALSE }
+library(usmap)
+us_counties <- map_data("county")
+# head(us_counties)
+# glimpse(data_all)
+
+data_all <- data_all %>% mutate(
+  county = str_to_lower(county)
+)
+# dim(data_all)
+# dim(us_counties)
+# data1 <- data_all %>% select(!c(lat, lng))
+# df <- us_counties %>% full_join(data1, by = c("state", "county"))
+df <- read_csv("vax_dataframe.csv")
+
+# df[ is.na(df$estimated_hesitant), ]
+
+us_counties <- us_counties %>% rename(state = region, 
+                                      county = subregion) %>% 
+                               mutate(county = as.factor(county), 
+                                      state = as.factor(state))
+
+data_all <- data_all %>% 
+                  mutate(county = as.factor(county), 
+                         state = as.factor(state), 
+                         state = str_to_lower(state))
+#data1 <- data_all %>% select(!c(lat, lng))
+
+df2 <- df %>% group_by(state) %>% fill(estimated_hesitant) 
+df3 <- df %>% group_by(state) %>% fill(svi_category)
+#Hmisc::describe(us_counties$county)
+
+#us_counties %>% filter(state == "alabama") %>% group_by(county) %>% count() %>% View
+```
+
+#Percent Hesitancy by county 
+```{r,  message = FALSE}
+library(plotly)
+
+p <- df2 %>% rowwise() %>% 
+  mutate(not_hesitant = 1 - sum(estimated_hesitant_or_unsure, estimated_hesitant, estimated_strongly_hesitant)*100, 
+         total = sum(not_hesitant, estimated_hesitant_or_unsure, estimated_hesitant, estimated_strongly_hesitant), 
+         any_hesitant = sum(estimated_hesitant_or_unsure, estimated_hesitant, estimated_strongly_hesitant)*100) %>% 
+  rename(`Total Hesitancy`= any_hesitant) %>% 
+  ggplot(mapping = aes(x = long, y = lat, group= group, 
+                           fill = `Total Hesitancy`, 
+                           text = paste0("State: ", str_to_title(state), "<br>", 
+                                         "County: ", str_to_title(county)))) 
+
+p1 <- p + geom_polygon(color = "gray90", size = 0.1) +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) + 
+  labs(fill = "Percent hesitant", 
+       x = " ", 
+       y = " ")
+```
+```{r}
+ggplotly(p1)
+```
+Participants were asked to identify their level of hesitancy from "hesitant", "hesitant or unsure", and "strongly hesitant". This map depicts the total percent of any type hesitancy (sum of percent "hesitant", "hesitant or unsure", and "strongly hesitant"). Most counties appear to have about 40% and <40% of the population hesitant about getting the COVID-19 vaccine. The Southeast along with areas in the North (around Montana, Idaho, and Wyoming) have greater proportions of vaccine hesitancy. 
+
+
+## Map of social vulnerability index by county 
+```{r, include = FALSE, message = FALSE}
+library(viridis)
+df3 <- df3 %>%  mutate(
+  svi_category = as.factor(svi_category),
+ svi_category = fct_relevel(svi_category, c("Very High Vulnerability","High Vulnerability", "Moderate Vulnerability", "Low Vulnerability", "Very Low Vulnerability")) ) %>% 
+  rename(`Category` = svi_category)
+
+p3 <- df3 %>% 
+  ggplot(mapping = aes(x = long, y = lat, group= 1, fill = `Category`, 
+                       text = paste0("State: ", str_to_title(state), "<br>", 
+                                     "County: ", str_to_title(county)))) +
+  scale_fill_viridis_d()
+p4 <- p3 + geom_polygon(color = "gray90", size = 0.1) +
+  scale_color_viridis() +
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) + 
+  labs(fill = "Social Vulnerability Index", 
+       x = " ", 
+       y = " ") 
+```
+```{r}
+ggplotly(p4)
+```
+
+Social vulnerability index is a classification of census tracts that is used by public health and emergency response officials to identify places that require support. In calculating this, it involves measures of socioeconomic status, household composition and disability, minority status, housing, and transportation in each census tract (CDC). 
+There is a concentration of Very High Vulnerability areas across the Southern United States and more Low/Very Low Vulnerability areas in the North. 
+
+When comparing the maps of vaccine hesitancy and social vulnerability index, it shows that there is some overlap of vaccine hesitancy and high vulnerability. This is can be seen in many of the counties in the Southeast US. In the Midwest/Great Lakes region, there are many areas with about a 40-20% of population vaccine hesitancy and low-very low social vulnerability. Vaccine hesitancy appears to be relatively consistent within a state, but social vulnerability varies by county, with some states having a mix of high and low SVI. From looking at these maps, it shows that there could be a link between social factors and vaccine hesitancy, with high hesitancy being associated with high vulnerability. 
+
+
+ 
