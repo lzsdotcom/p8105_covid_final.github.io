@@ -1,5 +1,5 @@
 ---
-title: "hesitancy maps"
+title: "Vaccination Hesitancy Maps"
 output: 
   html_document:
     toc: true
@@ -86,7 +86,8 @@ df3 <- df %>% group_by(state) %>% fill(svi_category)
 #us_counties %>% filter(state == "alabama") %>% group_by(county) %>% count() %>% View
 ```
 
-#Percent Hesitancy by county 
+## Percent Hesitancy by County 
+
 ```{r,  message = FALSE}
 library(plotly)
 
@@ -112,7 +113,8 @@ ggplotly(p1)
 Participants were asked to identify their level of hesitancy from "hesitant", "hesitant or unsure", and "strongly hesitant". This map depicts the total percent of any type hesitancy (sum of percent "hesitant", "hesitant or unsure", and "strongly hesitant"). Most counties appear to have about 40% and <40% of the population hesitant about getting the COVID-19 vaccine. The Southeast along with areas in the North (around Montana, Idaho, and Wyoming) have greater proportions of vaccine hesitancy. 
 
 
-## Map of social vulnerability index by county 
+## Map of Social Vulnerability Index by County 
+
 ```{r, include = FALSE, message = FALSE}
 library(viridis)
 df3 <- df3 %>%  mutate(

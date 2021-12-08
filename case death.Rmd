@@ -1,5 +1,5 @@
 ---
-title: "COVID-19 cases and deaths"
+title: "COVID-19 Cases and Deaths"
 output: 
   html_document:
     toc: true
@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 
-```{r setup}
+```{r setup, message = F}
 library(tidyverse)
 library(lubridate)
 library(broom)
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## 1. Tracking the course of the COVID pandemic
 We will use NY Times COVID tracking data from the very beginning of COVID onset to refresh what has happened and what has changed.
-```{r}
+```{r, message = F}
 us_states_long = read_csv("./us_states_long.csv")
 
 us_states =
@@ -79,6 +79,7 @@ us %>%
     x = "Date"
   )
 ```
+$//$
 While the line graph shows that the more cases, the less deaths in general trend, it is not a reasonable relationship to conclude. So we turn to use a simple regression to further our question on their relationship. 
 
 ## 2. Trends in cases and deaths
