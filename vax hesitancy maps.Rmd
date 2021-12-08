@@ -44,29 +44,37 @@ data_all <- bind_rows(pt1, pt2, pt3, pt4, pt5, pt6, pt7)
 ```{r, message = FALSE, include= FALSE }
 library(usmap)
 us_counties <- map_data("county")
-# head(us_counties)
-# glimpse(data_all)
-
-data_all <- data_all %>% mutate(
-  county = str_to_lower(county)
-)
-# dim(data_all)
-# dim(us_counties)
-# data1 <- data_all %>% select(!c(lat, lng))
-# df <- us_counties %>% full_join(data1, by = c("state", "county"))
-df <- read_csv("vax_dataframe.csv")
-
-# df[ is.na(df$estimated_hesitant), ]
-
 us_counties <- us_counties %>% rename(state = region, 
                                       county = subregion) %>% 
                                mutate(county = as.factor(county), 
                                       state = as.factor(state))
+# head(us_counties)
+# glimpse(data_all)
+
+data_all <- data_all %>% mutate(
+  county = str_to_lower(county) 
+) %>% select(!c(lat, lng))
 
 data_all <- data_all %>% 
                   mutate(county = as.factor(county), 
                          state = as.factor(state), 
                          state = str_to_lower(state))
+data_all <- data_all %>% select(state, county, starts_with("estimated"), svi_category)
+
+df <- us_counties %>% full_join(data_all, by = c("state", "county"))
+# dim(data_all)
+# dim(us_counties)
+#data1 <- data_all %>% select(!c(lat, lng))
+# df <- us_counties %>% full_join(data_all, by = c("state", "county"))
+# df <- read_csv("vax_dataframe.csv")
+# glimpse(df)
+
+
+# df[ is.na(df$estimated_hesitant), ]
+
+
+
+
 #data1 <- data_all %>% select(!c(lat, lng))
 
 df2 <- df %>% group_by(state) %>% fill(estimated_hesitant) 
