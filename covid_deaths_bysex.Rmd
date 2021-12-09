@@ -1,5 +1,5 @@
 ---
-title: "11-21"
+title: "COVID-19 Deaths by Sex"
 output: 
   html_document:
     toc: true
@@ -19,7 +19,7 @@ library(lubridate)
 
 ```
 ## Load Data
-```{r}
+```{r, incldue = FALSE, message = FALSE }
 
 death_age_sex <- GET("https://data.cdc.gov/resource/9bhg-hcku.csv") %>% 
                         content("parsed") %>% mutate(start_date = ymd(start_date), 
@@ -43,7 +43,8 @@ male <- death_age_sex %>% select(start_date, end_date, state,sex,  age_group, co
 ```
 
 ## Graph of deaths by sex 
-```{r}
+```{r, message = FALSE}
+library(viridis)
 
 death_age_sex %>% filter(sex == "Male" | sex == "Female" ) %>% 
                   filter(age_group == "0-17 years"| age_group ==  "18-29 years" |age_group == "30-39 years" 
@@ -59,7 +60,7 @@ death_age_sex %>% filter(sex == "Male" | sex == "Female" ) %>%
     title = element_text(hjust = 0.5)) + 
   xlab("Age Group") + 
   ylab("COVID-19 Deaths") + 
-  scale_fill_manual("Sex",values=c("Navy","dark green")) 
+  scale_fill_viridis_d()
   
   
 ```
