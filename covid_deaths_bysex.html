@@ -414,9 +414,9 @@ all &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_grou
 Hmisc::describe(all$end_date)</code></pre>
 <pre><code>## all$end_date 
 ##          n    missing   distinct       Info       Mean        Gmd 
-##        340          0          1          0 2021-11-27          0 
+##        340          0          1          0 2021-12-04          0 
 ##                      
-## Value      2021-11-27
+## Value      2021-12-04
 ## Frequency         340
 ## Proportion          1</code></pre>
 <pre class="r"><code># females only
@@ -454,7 +454,7 @@ male &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_gro
 ## Warning in mean.default(sort(x, partial = half + 0L:1L)[half + 0L:1L]): argument
 ## is not numeric or logical: returning NA</code></pre>
 <pre><code>## Warning: Ignoring unknown parameters: stat</code></pre>
-<pre><code>## Warning: Removed 33 rows containing missing values (geom_col).</code></pre>
+<pre><code>## Warning: Removed 32 rows containing missing values (geom_col).</code></pre>
 <p><img src="covid_deaths_bysex_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 
