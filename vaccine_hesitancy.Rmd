@@ -17,8 +17,8 @@ library(patchwork)
 library(leaflet)
 
 knitr::opts_chunk$set(
-  fig.width = 6,
-  fig.asp = .6,
+  fig.width = 10,
+  fig.asp = .8,
   out.width = "90%"
 )
 
@@ -39,9 +39,19 @@ The CDC provides data on vaccine hesitancy at the state level using the U.S. Cen
 
 ## Factors associated with vaccine hesitancy
 
-```{r}
-hesitancy <- GET("https://data.cdc.gov/resource/q9mh-h2tw.csv") %>%
-  content("parsed")
+```{r, include=FALSE, message=FALSE}
+pt1 <- read_csv("hesitant_vax_data_pt1.csv")
+pt2 <- read_csv("hesitant_vax_data_pt2.csv")
+pt3 <- read_csv("hesitant_vax_data_pt3.csv")
+pt4 <- read_csv("hesitant_vax_data_pt4.csv")
+pt5 <- read_csv("hesitant_vax_data_pt5.csv")
+pt6 <- read_csv("hesitant_vax_data_pt6.csv")
+pt7 <- read_csv("hesitant_vax_data_pt7.csv")
+
+hesitancy <- bind_rows(pt1, pt2, pt3, pt4, pt5, pt6, pt7)
+
+# hesitancy <- GET("https://data.cdc.gov/resource/q9mh-h2tw.csv") %>%
+#   content("parsed")
 
 vaccine_hesitancy = hesitancy %>% 
   mutate(
@@ -54,9 +64,11 @@ Mean hesitancy by state
 ```{r}
 vaccine_hesitancy %>% 
   group_by(state) %>% 
+  mutate(state = str_to_title(state)) %>% 
+  rename(State = state) %>% 
   summarize(
-    hesitant = mean(estimated_hesitant)
-  )
+    Hesitant = mean(estimated_hesitant)
+  ) %>% knitr::kable()
 ```
 
 Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)
@@ -67,15 +79,26 @@ vaccine_hesitancy %>%
   geom_boxplot() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
+```{r}
+vaccine_hesitancy %>% 
+  mutate(state = str_to_title(state)) %>% 
+  ggplot(aes(x = reorder(state, -estimated_hesitant), y = estimated_hesitant)) +
+  geom_boxplot(width = 0.5) +
+  xlab("State") + 
+  ylab("Estimated Hesitancy") + 
+  theme(axis.text.x = element_text(angle = 45, hjust=1))
+```
 
 
 Mean STRONGLY hesitancy by state
 ```{r}
 vaccine_hesitancy %>% 
   group_by(state) %>% 
+  mutate(state = str_to_title(state)) %>% 
+  rename(State = state) %>% 
   summarize(
-    hesitant = mean(estimated_strongly_hesitant)
-  )
+    Hesitant = mean(estimated_strongly_hesitant)
+  ) %>% knitr::kable()
 ```
 
 Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)
@@ -84,7 +107,17 @@ Boxplot of mean hesitancy (probably not taking vaccine or definiitely not)
 vaccine_hesitancy %>% 
   ggplot(aes(x = reorder(state, -estimated_strongly_hesitant), y = estimated_strongly_hesitant)) +
   geom_boxplot() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
+```
+```{r}
+vaccine_hesitancy %>% 
+  mutate(state = str_to_title(state)) %>% 
+  ggplot(aes(x = reorder(state, -estimated_strongly_hesitant), y = estimated_strongly_hesitant)) +
+  geom_boxplot(width = 0.5) +
+  xlab("State") + 
+  ylab("Estimated Strongly Hesitant") + 
+  coord_flip()
+
 ```
 
 
@@ -104,15 +137,42 @@ strongly_hesitant_plot = vaccine_hesitancy %>%
 hesitant_plot + strongly_hesitant_plot
 
 ```
+```{r}
+#below line makes it so svi labels are on different lines 
+levels(vaccine_hesitancy$svi_category) <- gsub(" ", "\n", levels(vaccine_hesitancy$svi_category))
+
+hesitant_plot = vaccine_hesitancy %>% 
+  na.omit() %>% 
+  ggplot(aes(x = svi_category, y = estimated_hesitant)) +
+  geom_boxplot() +
+  xlab("SVI Category") + 
+  ylab("Estimated Hesitant") + 
+  theme(title = element_text(hjust = 0.5) ) +
+  ggtitle("Estimated Vaccine Hesitancy")
+
+
+strongly_hesitant_plot = vaccine_hesitancy %>% 
+  na.omit() %>% 
+  ggplot(aes(x = svi_category, y = estimated_strongly_hesitant)) +
+  geom_boxplot() + 
+  xlab("SVI Category") + 
+  ylab("Estimated Strongly Hesitant") + 
+  theme(title = element_text(hjust = 0.5) ) + 
+  ggtitle("Estimated Strong Vaccine Hesitancy")
+
+library(patchwork)
+hesitant_plot +  strongly_hesitant_plot 
+```
+
 
 Linear regression
 
 ```{r}
-fit = lm(estimated_hesitant ~ social_vulnerability_index + percent_non_hispanic_white, data = vaccine_hesitancy)
+fit = lm(estimated_hesitant ~ social_vulnerability_index_svi + percent_non_hispanic_white, data = vaccine_hesitancy)
 
 broom::tidy(fit)
 
-fit2 = lm(estimated_strongly_hesitant ~ social_vulnerability_index + percent_non_hispanic_white, data = vaccine_hesitancy)
+fit2 = lm(estimated_strongly_hesitant ~ social_vulnerability_index_svi + percent_non_hispanic_white, data = vaccine_hesitancy)
 
 broom::tidy(fit2)
 ```
