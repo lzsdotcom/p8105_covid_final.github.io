@@ -14,6 +14,8 @@ navbar:
           href: covid_deaths_by_race_education.html
         - text: "United States"
           href: covid_pre_post_vacc.html
+        - text: "By State"
+          href: covid_by_state.html
         - text: "New York State"
           href: ny_covid_pre_post_vax.html
         - text: "New York City"

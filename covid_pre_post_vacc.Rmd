@@ -217,37 +217,3 @@ U.S. State Post-vax/Pre-vax Death Ratio: `r post_vacc_death_lm$estimate[2]/pre_v
 
 For reference, here are the slopes of the lines of best fit to attempt to investigate the effect that the vaccine's avaiability had on the daily increase in cases and deaths, roughly. We can see that although the cases continued to rise at a even sharper rate, the amount of deaths held constant even though the pandemic continued on. This seems to indicate that less people who were catching the virus were actually dying, and this is likely attributable to the presence of a vaccine. We'll attempt to corroborate this finding with vaccination data in the following pages of this report. We realize that the curves and rates for these metrics for the entire United States make it hard to delineate the underlying reasons and factors, so we thought it would be interesting to investigate these numbers on a state by state basis, and then focus in on New York state and New York City to see how the trends in such a dense area may have differed from the United States at large. Of course, the division in attitudes towards vaccination in the United States make it difficult to extrapolate rationale from this aggregated data set.
 
-```{r, message = F}
-states = read_csv("./data/us-states.csv") %>% 
-  mutate(dc_ratio = deaths/cases)
-```
-
-```{r}
-all_states_cases = 
-  states %>% 
-  ggplot(aes(x = date, y = cases, color = state)) +
-  geom_path() +
-  labs(title = "Cumulative Cases by State",
-       x = "Date",
-       y = "Cases")
-ggplotly(all_states_cases)
-       
-all_states_deaths = 
-  states %>% 
-  ggplot(aes(x = date, y = deaths, color = state)) +
-  geom_path() +
-  labs(title = "Cumulative Deaths by State",
-       x = "Date",
-       y = "Cases")
-ggplotly(all_states_deaths)
-
-all_states_dc_ratio = 
-  states %>% 
-  ggplot(aes(x = date, y = dc_ratio, color = state)) +
-  geom_path() +
-  labs(title = "Deaths/Cases Ratio by State",
-       x = "Date",
-       y = "Deaths/Cases Ratio")
-ggplotly(all_states_dc_ratio)
-```
-

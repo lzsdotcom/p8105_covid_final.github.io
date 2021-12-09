@@ -1,0 +1,80 @@
+---
+title: "COVID Cases and Deaths by State"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r, message = F}
+library(tidyverse)
+library(patchwork)
+library(plotly)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+```{r, message = F}
+states = read_csv("./data/us-states.csv") %>% 
+  mutate(dc_ratio = deaths/cases)
+```
+
+## Cumulative Cases by State
+
+```{r}
+all_states_cases = 
+  states %>% 
+  ggplot(aes(x = date, y = cases, color = state)) +
+  geom_path() +
+  labs(title = "Cumulative Cases by State",
+       x = "Date",
+       y = "Cases")
+ggplotly(all_states_cases)
+```
+
+Since the aggregated data from the entire United States can be misleading, we broke up the cumulative data by state to investigate which states are carrying the highest load of cases and deaths, so that we can compare this data to the vaccination by state to make sense of the whole U.S. data. These graphs are interactive plotly plots so that the busy lines can be investigated more closely. Also, states can be selected by double-clicking or deselected by single-clicking. We can see that New York state is in the top 4 states when it comes to cumulative cases. Despite this, as we'll investigate, the case and death rates were affected greatly by vaccine availability, unlike many other states. Reasons for this will be looked into as well in this report.
+
+## Cumulative Deaths by State
+
+```{r}
+all_states_deaths = 
+  states %>% 
+  ggplot(aes(x = date, y = deaths, color = state)) +
+  geom_path() +
+  labs(title = "Cumulative Deaths by State",
+       x = "Date",
+       y = "Cases")
+ggplotly(all_states_deaths)
+```
+
+Even though, as mentioned above, New York state is in the top 4 of cumulative cases and deaths, the rate of deaths decreased more than any of the other top 4 states after vaccine availability. Being in the top 4 is likely due to the high population of New York state, but the decrease in rate may be attributed to increased vaccine uptake. Again, we will explore this in more detail.
+
+## Death/Case Ratio by State
+
+```{r}
+all_states_dc_ratio = 
+  states %>% 
+  ggplot(aes(x = date, y = dc_ratio, color = state)) +
+  geom_path() +
+  labs(title = "Deaths/Cases Ratio by State",
+       x = "Date",
+       y = "Deaths/Cases Ratio")
+ggplotly(all_states_dc_ratio)
+```
+
+The death to case ratio per state can also be interpreted as a function of skepticism of the pandemic, plus adherence to mandates and lockdowns in the early days. Again, we can see that despite the large population of New York state, it fared better in this ratio metric than many other less populated states. This is arguably because of attitudes towards the concept of a pandemic and adherence to mandates, in addition to vaccine hesitancy and uptake data.
