@@ -7,7 +7,7 @@ output:
     code_folding: hide
 ---
 
-```{r setup, include=FALSE}
+```{r setup, message = FALSE}
 library(tidyverse)
 library(readr)
 library(rvest)
@@ -19,7 +19,7 @@ library(lubridate)
 
 ```
 
-```{r, incldue = FALSE, message = FALSE }
+```{r, warning = FALSE, message = FALSE }
 
 death_age_sex <- GET("https://data.cdc.gov/resource/9bhg-hcku.csv") %>% 
                         content("parsed") %>% mutate(start_date = ymd(start_date), 
@@ -43,7 +43,7 @@ male <- death_age_sex %>% select(start_date, end_date, state,sex,  age_group, co
 ```
 
 ## Graph of deaths by sex 
-```{r, message = FALSE, error = FALSE}
+```{r, message = FALSE, warning = FALSE}
 library(viridis)
 
 death_age_sex %>% filter(sex == "Male" | sex == "Female" ) %>% 

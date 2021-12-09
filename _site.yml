@@ -4,13 +4,13 @@ navbar:
   title: "Home"
   right:
     - text: "Report"
-      href: report.html
-    - text: "Exploratory"
+      href: report_new.html
+    - text: "Cases/Deaths Data"
       menu:
         - text: "COVID Case and Death Rates"
         - text: "By Sex"
           href: covid_deaths_bysex.html
-        - text: "By Race/Education"
+        - text: "By Race"
           href: covid_deaths_by_race_education.html
         - text: "United States"
           href: covid_pre_post_vacc.html
@@ -20,14 +20,15 @@ navbar:
           href: nyc_covid_pre_post_vax.html
         - text: "Projected"
           href: case-death.html
-        - text: "---------"
+    - text: "Vaccine Data"
+      menu:
         - text: "Vaccination Data"
         - text: "Vaccine Distribution/Uptake"
           href: vaccine_distribution.html
         - text: "Vaccination Rates"
           href: vaccination_rate.html
         - text: "Vaccination Hesitancy"
-          href: vaccine_hesitancy.html
+          href: vaccine_hesitancy_new.html
         - text: "Vaccination Hesitancy Maps"
           href: vax-hesitancy-maps.html
 

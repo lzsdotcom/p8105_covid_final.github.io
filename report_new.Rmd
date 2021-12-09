@@ -1,0 +1,87 @@
+---
+title: "Report"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+## Methods 
+
+### Data Sources
+
+##### New York Times COVID-19 dataset
+
+The New York Times maintains a database of COVID-19 cases and deaths in the United States. This information is pulled from multiple different data sources. The data is cleaned by the NY Times and subsequently made publicly available. This dataset was used in our initial analyses to describe trands in COVID-19 cases and deaths in the U.S. A link to the dataset can be found here: [NY Times COVID-19 data set](https://github.com/nytimes/covid-19-data/).
+
+##### Our World COVID-19 dataset
+
+Our World In Data is a sub-project of the GLobal Change Data Lab, a non=profit organization based in the United Kingdom. The organization aims to collect data about the world's largest problems including poverty, disease, hunger, and climate change. There are 207 country profiles that allow for exploration of trends in the COVID-19 pandemic worldwide. This data was used in conjunction with CDC data to explore trends in vaccine uptake across the United States. The dataset used for this project is linked here: [Our World COVID-19 data](https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations).
+
+##### Centers for Disease Control and Prevention
+
+The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 cases, deaths, and vaccination rates. We used numerous publicly available data files for this project, which are listed below:
+
+- [CDC's United States COVID-19 Cases and Deaths by State Over Time](https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36)
+- CDC's COVID-19 deaths by: [Sex and age](https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-by-Sex-and-Age/9bhg-hcku), [Race and Hispanic origin](https://data.cdc.gov/NCHS/Provisional-COVID-19-Deaths-Distribution-of-Deaths/pj7m-y5uh)
+- [CDC's Vaccine hesitancy for COVID-19: county and local estimates](https://data.cdc.gov/Vaccinations/Vaccine-Hesitancy-for-COVID-19-County-and-local-es/q9mh-h2tw)
+- CDC's COVID-19 Vaccine Distribution Allocations by Jurisdiction - [Pfizer](https://data.cdc.gov/Vaccinations/COVID-19-Vaccine-Distribution-Allocations-by-Juris/saz5-9hgg), [Moderna](https://data.cdc.gov/Vaccinations/COVID-19-Vaccine-Distribution-Allocations-by-Juris/b7pe-5nws), [J&J](https://data.cdc.gov/Vaccinations/COVID-19-Vaccine-Distribution-Allocations-by-Juris/w9zu-fywh)
+- [CDC's COVID-19 vaccinations in the United States, County](https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh)
+
+### Aims
+
+* To describe trends in COVID-19 cases and deaths in the U.S. and NYC from January 2020 to November 2021
+* To describe differences in COVID-19 deaths by subgroups (age, sex, race)
+* To assess patterns of COVID-19 vaccine distribution by vaccine type in the United States
+* To assess patterns of COVID-19 vaccine uptake in the United States
+* To determine whether COVID-19 vaccination had an impact on case and death rates
+* To explore patterns of vaccine hesitancy throughout the United States
+* To explore predictors of vaccine hesitancy
+
+### Analytical Methods
+
+Detailed methodology is available on each of the results pages (see below). In general, we used three main approaches. First, we created descriptive figures to demonstrate COVID-19 case and death rates and patterns of vaccine hesitancy. Secondly, we created interactive maps to demonstrate vaccine distribution and uptake, vaccine hesitancy, and risk factors for vaccine hesitancy. Finally, we used linear regression analyses to assess risk factors for vaccine hesitancy.
+
+## Results
+
+COVID Case and Death Rates
+
+* [By Sex](covid_deaths_bysex.html)
+* [By Race](covid_deaths_by_race_education.html)
+* [United States](covid_pre_post_vacc.html)
+* [New York State](ny_covid_pre_post_vax.html)
+* [New York City](nyc_covid_pre_post_vax.html)
+* [Projected](case-death.html)
+
+Vaccination Data
+
+* [Vaccine Distribution/Uptake](vaccine_distribution.html)
+* [Vaccination Rates](vaccination_rate.html)
+* [Vaccination Hesitancy](vaccine_hesitancy_new.html)
+* [Vaccination Hesitancy Maps](vax-hesitancy-maps.html)
+
+## Discussion
+Summary of findings from each page
+
+

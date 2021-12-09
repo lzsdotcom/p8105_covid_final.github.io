@@ -325,11 +325,11 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="report.html">Report</a>
+  <a href="report_new.html">Report</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Exploratory
+    Cases/Deaths Data
      
     <span class="caret"></span>
   </a>
@@ -339,7 +339,7 @@ div.tocify {
       <a href="covid_deaths_bysex.html">By Sex</a>
     </li>
     <li>
-      <a href="covid_deaths_by_race_education.html">By Race/Education</a>
+      <a href="covid_deaths_by_race_education.html">By Race</a>
     </li>
     <li>
       <a href="covid_pre_post_vacc.html">United States</a>
@@ -353,7 +353,15 @@ div.tocify {
     <li>
       <a href="case-death.html">Projected</a>
     </li>
-    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Vaccine Data
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Vaccination Data</li>
     <li>
       <a href="vaccine_distribution.html">Vaccine Distribution/Uptake</a>
@@ -362,7 +370,7 @@ div.tocify {
       <a href="vaccination_rate.html">Vaccination Rates</a>
     </li>
     <li>
-      <a href="vaccine_hesitancy.html">Vaccination Hesitancy</a>
+      <a href="vaccine_hesitancy_new.html">Vaccination Hesitancy</a>
     </li>
     <li>
       <a href="vax-hesitancy-maps.html">Vaccination Hesitancy Maps</a>
@@ -391,8 +399,12 @@ div.tocify {
 </div>
 
 
-<div id="load-data" class="section level2">
-<h2>Load Data</h2>
+<pre class="r"><code>library(tidyverse)
+library(readr)
+library(rvest)
+library(httr)
+library(lubridate)
+#us_states_long &lt;- read_rds(us_states_long.rdata)</code></pre>
 <pre class="r"><code>death_age_sex &lt;- GET(&quot;https://data.cdc.gov/resource/9bhg-hcku.csv&quot;) %&gt;% 
                         content(&quot;parsed&quot;) %&gt;% mutate(start_date = ymd(start_date), 
                                                       end_date = ymd(end_date))
@@ -401,15 +413,9 @@ all &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_grou
                          filter(sex == &quot;All Sexes&quot;) %&gt;% mutate(start_date = ymd(start_date), 
                                                                 end_date = ymd(end_date))
 
-Hmisc::describe(all$end_date)</code></pre>
-<pre><code>## all$end_date 
-##          n    missing   distinct       Info       Mean        Gmd 
-##        340          0          1          0 2021-12-04          0 
-##                      
-## Value      2021-12-04
-## Frequency         340
-## Proportion          1</code></pre>
-<pre class="r"><code># females only
+
+
+# females only
 female &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_group, covid_19_deaths) %&gt;% 
                             filter(sex == &quot;Female&quot;) %&gt;% mutate(start_date = ymd(start_date), 
                                                                   end_date = ymd(end_date))
@@ -417,7 +423,6 @@ female &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_g
 male &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_group, covid_19_deaths) %&gt;% 
                           filter(sex == &quot;Male&quot;) %&gt;% mutate(start_date = ymd(start_date), 
                                                             end_date = ymd(end_date))</code></pre>
-</div>
 <div id="graph-of-deaths-by-sex" class="section level2">
 <h2>Graph of deaths by sex</h2>
 <pre class="r"><code>library(viridis)
@@ -437,16 +442,6 @@ death_age_sex %&gt;% filter(sex == &quot;Male&quot; | sex == &quot;Female&quot; 
   xlab(&quot;Age Group&quot;) + 
   ylab(&quot;COVID-19 Deaths&quot;) + 
   scale_fill_viridis_d()</code></pre>
-<pre><code>## Warning in mean.default(sort(x, partial = half + 0L:1L)[half + 0L:1L]): argument
-## is not numeric or logical: returning NA
-
-## Warning in mean.default(sort(x, partial = half + 0L:1L)[half + 0L:1L]): argument
-## is not numeric or logical: returning NA
-
-## Warning in mean.default(sort(x, partial = half + 0L:1L)[half + 0L:1L]): argument
-## is not numeric or logical: returning NA</code></pre>
-<pre><code>## Warning: Ignoring unknown parameters: stat</code></pre>
-<pre><code>## Warning: Removed 32 rows containing missing values (geom_col).</code></pre>
 <p><img src="covid_deaths_bysex_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 

@@ -17,5 +17,3 @@ The inspiration for this exploratory data analysis was largely drawn from the fa
 
 ## Webcast
 
-## Notes
-- Add Exploratory Analysis and Statistical Analysis links to header

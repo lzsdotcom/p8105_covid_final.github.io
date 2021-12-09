@@ -79,7 +79,8 @@ us %>%
     x = "Date"
   )
 ```
-$//$
+
+
 While the line graph shows that the more cases, the less deaths in general trend, it is not a reasonable relationship to conclude. So we turn to use a simple regression to further our question on their relationship. 
 
 ## 2. Trends in cases and deaths
