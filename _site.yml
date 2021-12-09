@@ -7,7 +7,6 @@ navbar:
       href: report_new.html
     - text: "Cases/Deaths Data"
       menu:
-        - text: "COVID Case and Death Rates"
         - text: "By Sex"
           href: covid_deaths_bysex.html
         - text: "By Race"
@@ -21,10 +20,9 @@ navbar:
         - text: "New York City"
           href: nyc_covid_pre_post_vax.html
         - text: "Projected"
-          href: case-death.html
+          href: case_death.html
     - text: "Vaccine Data"
       menu:
-        - text: "Vaccination Data"
         - text: "Vaccine Distribution/Uptake"
           href: vaccine_distribution.html
         - text: "Vaccination Rates"

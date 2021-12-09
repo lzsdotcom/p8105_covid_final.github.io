@@ -70,9 +70,10 @@ COVID Case and Death Rates
 * [By Sex](covid_deaths_bysex.html)
 * [By Race](covid_deaths_by_race_education.html)
 * [United States](covid_pre_post_vacc.html)
+* [By State](covid_by_state.html)
 * [New York State](ny_covid_pre_post_vax.html)
 * [New York City](nyc_covid_pre_post_vax.html)
-* [Projected](case-death.html)
+* [Projected](case_death.html)
 
 Vaccination Data
 
