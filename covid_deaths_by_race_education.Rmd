@@ -44,7 +44,7 @@ death_race_age <- GET("https://data.cdc.gov/resource/ks3g-spdg.csv") %>%
   mutate(start_week = ymd(start_week),
          end_week = ymd(end_week))
 
-table(death_race_age$age_group_new)
+
 
 #combined set
 death_race_age_df = 
@@ -64,9 +64,9 @@ death_race_age_df =
 ```
 
 ## Graph of deaths by race 
-```{r, message = FALSE}
+```{r, message = FALSE, error = FALSE}
 
-death_race_age_df %>% 
+death_by_race <- death_race_age_df %>% 
   mutate(age_group = fct_reorder(age_group_new, age_group_new)) %>% 
   ggplot(aes(x = reorder(race_and_hispanic_origin, deaths), y = deaths, fill = age_group)) + 
   geom_col(position = "dodge", stat = "identity") + 
@@ -80,6 +80,6 @@ death_race_age_df %>%
        y = "COVID-19 Deaths",
        fill = "Age Group") 
   
-  
+ggplotly(death_by_race)
 ```
 
