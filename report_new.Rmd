@@ -29,17 +29,27 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ## Methods 
 
-### Data Sources
+\
 
-##### New York Times COVID-19 dataset
+## Data Sources
 
-The New York Times maintains a database of COVID-19 cases and deaths in the United States. This information is pulled from multiple different data sources. The data is cleaned by the NY Times and subsequently made publicly available. This dataset was used in our initial analyses to describe trands in COVID-19 cases and deaths in the U.S. A link to the dataset can be found here: [NY Times COVID-19 data set](https://github.com/nytimes/covid-19-data/).
+### *New York Times COVID-19 dataset*
 
-##### Our World COVID-19 dataset
+The New York Times maintains a database of COVID-19 cases and deaths in the United States. This information is pulled from multiple different data sources. The data is cleaned by the NY Times and subsequently made publicly available. This dataset was used in our initial analyses to describe trands in COVID-19 cases and deaths in the U.S. 
 
-Our World In Data is a sub-project of the GLobal Change Data Lab, a non=profit organization based in the United Kingdom. The organization aims to collect data about the world's largest problems including poverty, disease, hunger, and climate change. There are 207 country profiles that allow for exploration of trends in the COVID-19 pandemic worldwide. This data was used in conjunction with CDC data to explore trends in vaccine uptake across the United States. The dataset used for this project is linked here: [Our World COVID-19 data](https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations).
+A link to the dataset can be found here: [NY Times COVID-19 data set](https://github.com/nytimes/covid-19-data/).
 
-##### Centers for Disease Control and Prevention
+\
+
+### *Our World COVID-19 dataset*
+
+Our World In Data is a sub-project of the GLobal Change Data Lab, a non=profit organization based in the United Kingdom. The organization aims to collect data about the world's largest problems including poverty, disease, hunger, and climate change. There are 207 country profiles that allow for exploration of trends in the COVID-19 pandemic worldwide. This data was used in conjunction with CDC data to explore trends in vaccine uptake across the United States. 
+
+The dataset used for this project is linked here: [Our World COVID-19 data](https://github.com/owid/covid-19-data/tree/master/public/data/vaccinations).
+
+\
+
+### *Centers for Disease Control and Prevention*
 
 The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 cases, deaths, and vaccination rates. We used numerous publicly available data files for this project, which are listed below:
 
@@ -49,7 +59,9 @@ The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 c
 - CDC's COVID-19 Vaccine Distribution Allocations by Jurisdiction - [Pfizer](https://data.cdc.gov/Vaccinations/COVID-19-Vaccine-Distribution-Allocations-by-Juris/saz5-9hgg), [Moderna](https://data.cdc.gov/Vaccinations/COVID-19-Vaccine-Distribution-Allocations-by-Juris/b7pe-5nws), [J&J](https://data.cdc.gov/Vaccinations/COVID-19-Vaccine-Distribution-Allocations-by-Juris/w9zu-fywh)
 - [CDC's COVID-19 vaccinations in the United States, County](https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh)
 
-### Aims
+\
+
+## Aims
 
 * To describe trends in COVID-19 cases and deaths in the U.S. and NYC from January 2020 to November 2021
 * To describe differences in COVID-19 deaths by subgroups (age, sex, race)
@@ -59,9 +71,13 @@ The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 c
 * To explore patterns of vaccine hesitancy throughout the United States
 * To explore predictors of vaccine hesitancy
 
-### Analytical Methods
+\
+
+## Analytical Methods
 
 Detailed methodology is available on each of the results pages (see below). In general, we used three main approaches. First, we created descriptive figures to demonstrate COVID-19 case and death rates and patterns of vaccine hesitancy. Secondly, we created interactive maps to demonstrate vaccine distribution and uptake, vaccine hesitancy, and risk factors for vaccine hesitancy. Finally, we used linear regression analyses to assess risk factors for vaccine hesitancy.
+
+\
 
 ## Results
 
@@ -81,6 +97,8 @@ Vaccination Data
 * [Vaccination Rates](vaccination_rate.html)
 * [Vaccination Hesitancy](vaccine_hesitancy_new.html)
 * [Vaccination Hesitancy Maps](vax-hesitancy-maps.html)
+
+\
 
 ## Discussion
 Summary of findings from each page
