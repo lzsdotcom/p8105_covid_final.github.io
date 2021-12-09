@@ -3,8 +3,6 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Report"
-      href: report_new.html
     - text: "Cases/Deaths Data"
       menu:
         - text: "By Sex"
@@ -31,8 +29,9 @@ navbar:
           href: vaccine_hesitancy_new.html
         - text: "Vaccination Hesitancy Maps"
           href: vax-hesitancy-maps.html
-
+    - text: "Report"
+      href: report_new.html
 
 output:
   html_document:
-    theme: cerulean
+    theme: readable
