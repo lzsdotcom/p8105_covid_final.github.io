@@ -18,7 +18,7 @@ library(lubridate)
 
 
 ```
-## Load Data
+
 ```{r, incldue = FALSE, message = FALSE }
 
 death_age_sex <- GET("https://data.cdc.gov/resource/9bhg-hcku.csv") %>% 
@@ -29,7 +29,7 @@ all <- death_age_sex %>% select(start_date, end_date, state,sex,  age_group, cov
                          filter(sex == "All Sexes") %>% mutate(start_date = ymd(start_date), 
                                                                 end_date = ymd(end_date))
 
-Hmisc::describe(all$end_date)
+
 
 # females only
 female <- death_age_sex %>% select(start_date, end_date, state,sex,  age_group, covid_19_deaths) %>% 
@@ -43,7 +43,7 @@ male <- death_age_sex %>% select(start_date, end_date, state,sex,  age_group, co
 ```
 
 ## Graph of deaths by sex 
-```{r, message = FALSE}
+```{r, message = FALSE, error = FALSE}
 library(viridis)
 
 death_age_sex %>% filter(sex == "Male" | sex == "Female" ) %>% 
