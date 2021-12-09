@@ -11,7 +11,7 @@
 
 
 
-<title>11-21</title>
+<title>COVID-19 Deaths by Sex</title>
 
 <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -386,7 +386,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">11-21</h1>
+<h1 class="title toc-ignore">COVID-19 Deaths by Sex</h1>
 
 </div>
 
@@ -395,18 +395,8 @@ div.tocify {
 <h2>Load Data</h2>
 <pre class="r"><code>death_age_sex &lt;- GET(&quot;https://data.cdc.gov/resource/9bhg-hcku.csv&quot;) %&gt;% 
                         content(&quot;parsed&quot;) %&gt;% mutate(start_date = ymd(start_date), 
-                                                      end_date = ymd(end_date))</code></pre>
-<pre><code>## Rows: 1000 Columns: 16</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr  (5): group, state, sex, age_group, footnote
-## dbl  (6): covid_19_deaths, total_deaths, pneumonia_deaths, pneumonia_and_cov...
-## lgl  (2): year, month
-## dttm (3): data_as_of, start_date, end_date</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<pre class="r"><code>#combined set
+                                                      end_date = ymd(end_date))
+#combined set
 all &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_group, covid_19_deaths) %&gt;% 
                          filter(sex == &quot;All Sexes&quot;) %&gt;% mutate(start_date = ymd(start_date), 
                                                                 end_date = ymd(end_date))
@@ -430,7 +420,9 @@ male &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_gro
 </div>
 <div id="graph-of-deaths-by-sex" class="section level2">
 <h2>Graph of deaths by sex</h2>
-<pre class="r"><code>death_age_sex %&gt;% filter(sex == &quot;Male&quot; | sex == &quot;Female&quot; ) %&gt;% 
+<pre class="r"><code>library(viridis)
+
+death_age_sex %&gt;% filter(sex == &quot;Male&quot; | sex == &quot;Female&quot; ) %&gt;% 
                   filter(age_group == &quot;0-17 years&quot;| age_group ==  &quot;18-29 years&quot; |age_group == &quot;30-39 years&quot; 
                          | age_group == &quot;40-49 years&quot; | age_group == &quot;50-64 years&quot;| 
                            age_group ==  &quot;65-74 years&quot;| age_group ==  &quot;75-84 years&quot; | age_group == &quot;85 years and over&quot;) %&gt;% 
@@ -444,7 +436,7 @@ male &lt;- death_age_sex %&gt;% select(start_date, end_date, state,sex,  age_gro
     title = element_text(hjust = 0.5)) + 
   xlab(&quot;Age Group&quot;) + 
   ylab(&quot;COVID-19 Deaths&quot;) + 
-  scale_fill_manual(&quot;Sex&quot;,values=c(&quot;Navy&quot;,&quot;dark green&quot;)) </code></pre>
+  scale_fill_viridis_d()</code></pre>
 <pre><code>## Warning in mean.default(sort(x, partial = half + 0L:1L)[half + 0L:1L]): argument
 ## is not numeric or logical: returning NA
 
