@@ -10,6 +10,7 @@ output:
 ```{r, message = F}
 library(tidyverse)
 library(patchwork)
+library(plotly)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -33,7 +34,9 @@ ny_covid =
   read_csv("./data/us-states.csv") %>% 
   filter(state == "New York") %>% 
   mutate(day = 1:645,
-         dc_ratio = deaths/cases) %>% 
+         dc_ratio = deaths/cases,
+         new_cases = cases - lag(cases, default = first(cases)),
+         new_deaths = deaths - lag(deaths, default = first(deaths))) %>% 
   select(-fips)
 ```
 
@@ -74,7 +77,32 @@ total_ratio_p / (pre_vacc_ratio_p + post_vacc_ratio_p)
 
 The cases and deaths in New York state do not seem to occur until March, which is delayed by over a month from the rest of the United States data. As such, there is no spike at the very beginning, but there is a large increase from 0 to 8 percent in the death to case ratio. Again, this is likely due to lack of any unifying knowledge about the virus or the pandemic, allowing it to spread freely. At this point in time, it was just beginning to be understood what in fact was going on. More drastically than the whole U.S. data though, around the winter-time when cases were spiking and at an all time high, the death to case ratio was dropping in New York state, and continued to drop after the availability of a vaccine. Although vaccine uptake was obviously not 100% in NY, it was better than the national average, and as such caused the ratio to continue to drop, as it was not confounded by states with poor vaccine uptake like the United States data. We can see from the post-vaccine ratio curve that after the vaccine was released, the death to case ratio continued to drop to the present and never experienced a second upward trend. This reduction in deaths from COVID cases may well be attributed to the effects of the vaccine and its availability.
 
-## Cases
+## New Cases and Deaths
+
+```{r}
+ny_newcase = 
+  ny_covid %>% 
+  ggplot(aes(x = date, y = new_cases)) +
+#  geom_point() +
+  geom_path() +
+  labs(title = "New COVID Cases and Deaths (Plotly)", x = "Date", y = "New Cases")
+ggply_ny_newcase = ggplotly(ny_newcase)
+
+ny_newdeath = 
+  ny_covid %>% 
+  ggplot(aes(x = date, y = new_deaths)) +
+#  geom_point() +
+  geom_path() +
+  labs(x = "Date", y = "New Deaths")
+ggply_ny_newdeath = ggplotly(ny_newdeath)
+
+subplot(ggply_ny_newcase, ggply_ny_newdeath, 
+        nrows = 2, shareX = TRUE, titleY = TRUE, titleX = TRUE, margin = 0.1)
+```
+
+Although in New York state the cases and deaths continuted to rise through the winter immediately after vaccine availability (presumably because it did not become widely available until late winter/early spring), we can see that unlike the rest of the United States, cases and deaths never regained quite the footing and numbers they had prior to vaccine availability. Our vaccination uptake data can corroborate the fact that New York may have had a higher rate of vaccination than the United States as a whole, and we can see the possible effects of that higher rate of vaccination in the big drop in new cases and even bigger drop in new deaths after New Yorkers across the state became vaccinated in large numbers.
+
+## Cumulative Cases
 
 ```{r}
 total_ny_case_lm = 
@@ -123,7 +151,7 @@ total_ny_case_p / (pre_vacc_case_p + post_vacc_case_p)
 
 As with the United States data, looking at the slops for the lines of best fit for cases, we can see that the rate of cases did continue even after the vaccine's availability. Whether this is because of poor vaccine uptake or effectiveness will be investigated in the vaccination data pages, but the post-vaccination to pre-vaccination case ratio is significantly less in New York state than in the United States at large (1.39 vs 1.77) indicating that New York state fared better than the U.S. as a whole when it came to the rate of cases after the vaccine's availability. Again, whether this difference is due to differences in vaccine uptake will be investigated. Visually however, the spike of cases seen during the winter season, around when the vaccine was first released, did not seem to replicate itself after its availability in the state of New York. Again, whether that was due to the vaccine's availability itself, seasonal factors, or others is a matter of conjecture and debate.
 
-## Deaths
+## Cumulative Deaths
 
 ```{r}
 total_ny_death_lm = 

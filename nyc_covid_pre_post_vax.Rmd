@@ -10,6 +10,7 @@ output:
 ```{r, message = F}
 library(tidyverse)
 library(patchwork)
+library(plotly)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -37,7 +38,9 @@ scale_fill_discrete = scale_fill_viridis_d
 #  select(-fips) %>% 
 #  write_csv("./nyc_covid.csv") Original data set was almost 80 MB in size
 
-nyc_covid = read_csv("./data/nyc_covid.csv")
+nyc_covid = read_csv("./data/nyc_covid.csv") %>% 
+  mutate(new_cases = cases - lag(cases, default = first(cases)),
+         new_deaths = deaths - lag(deaths, default = first(deaths)))
 ```
 
 In order to investigate the effect that vaccine release had on the trajectory of the pandemic, we first had to separate our data into pre-vaccine and post-vaccine dates. The date 12/14/20 was used as the date when vaccines became available in the U.S. Date was converted to "day of pandemic" in order to fit a line of best fit on a numeric variable instead of YYYY-MM-DD date format. The data from NY Times consisted of cumulative case and death counts, and from this we first looked at the death to case ratio curve overall, then separated into pre- and post-vaccine availability to see whether the presence of a vaccine changed the death/case ratio. Below is a look at that data for the the state of New York specifically.
@@ -77,7 +80,32 @@ total_ratio_p / (pre_vacc_ratio_p + post_vacc_ratio_p)
 
 The death to case ratio data and plots for NYC is nearly identical to that of the state as a whole, except that NYC death to case ratio tops out at slightly higher than 10% compared to the state's at around 8. This makes sense being that the city is so densely populated, more deaths from COVID cases were likely to have occurred there when compared to less densely populated cities in other parts of the state. The fact that the data and curves are nearly identical also makes sense being that NYC was probably the largest contributor to the data, being that the majority of the state's population is concentrated in this metropolitan area.
 
-## Cases
+## New Cases and Deaths
+
+```{r}
+nyc_newcase = 
+  nyc_covid %>% 
+  ggplot(aes(x = date, y = new_cases)) +
+#  geom_point() +
+  geom_path() +
+  labs(title = "New COVID Cases and Deaths (Plotly)", x = "Date", y = "New Cases")
+ggply_nyc_newcase = ggplotly(nyc_newcase)
+
+nyc_newdeath = 
+  nyc_covid %>% 
+  ggplot(aes(x = date, y = new_deaths)) +
+#  geom_point() +
+  geom_path() +
+  labs(x = "Date", y = "New Deaths")
+ggply_nyc_newdeath = ggplotly(nyc_newdeath)
+
+subplot(ggply_nyc_newcase, ggply_nyc_newdeath, 
+        nrows = 2, shareX = TRUE, titleY = TRUE, titleX = TRUE, margin = 0.1)
+```
+
+Again, we observe a similar trend in New York city compared with the state at large, as discussed more in this page, likely because the city is the largest driver of cases and deaths in the whole state.
+
+## Cumulative Cases
 
 ```{r}
 total_nyc_case_lm = 
@@ -126,7 +154,7 @@ total_nyc_case_p / (pre_vacc_case_p + post_vacc_case_p)
 
 Although the numbers on the y-axis are less than the states (for obvious reasons), the curves are nearly identical again between the city and the state, and the number of cases in the city is roughly 40% of all the cases in the state. This means that NYC is the largest driver and generator of the case data in the entire state, which explains why the curves are similar. For example, looking at day 300 between the city and the state, we can see that the city accounts for about 400,000 cases of the roughly 1 million in the state. For this reason, the trends between the city and the state are bound to be fairly similar because of the big contribution the city is making in terms of overall data points.
 
-## Deaths
+## Cumulative Deaths
 
 ```{r}
 total_nyc_death_lm = 
