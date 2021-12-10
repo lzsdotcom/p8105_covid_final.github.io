@@ -6,7 +6,7 @@ navbar:
     - text: "Cases/Deaths Data"
       menu:
         - text: "By Race/Sex (Dashboard)"
-          href: dashboard2.html
+          href: dashboard.html
         - text: "By Sex"
           href: covid_deaths_bysex.html
         - text: "By Race"
