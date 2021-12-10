@@ -83,7 +83,7 @@ Detailed methodology is available on each of the results pages (see below). In g
 
 COVID Case and Death Rates
 
-* [By Sex/Race (Dashboard)](dashboard.html)
+* [By Sex/Race (Dashboard)](dashboard2.html)
 * [By Sex](covid_deaths_bysex.html)
 * [By Race](covid_deaths_by_race_education.html)
 * [United States](covid_pre_post_vacc.html)
