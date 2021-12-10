@@ -65,3 +65,4 @@ death_age_sex %>% filter(sex == "Male" | sex == "Female" ) %>%
   
 ```
 
+For most of the age groups, there have been more COVID-19 deaths in males compared to females. In the oldest age group (85+ years), more women have died from COVID-19 than men. Studies have suggested that there is an association between COVID-19 outcomes and morbidity by sex. These gender differences could potentially be related to the incidence of COVID-19 comorbidities in men and women. Overall, COVID-19 mortality increases with age and there are sex differences in COVID-19 deaths. 
