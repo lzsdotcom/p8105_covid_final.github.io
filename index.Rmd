@@ -38,7 +38,5 @@ The inspiration for this exploratory data analysis was largely drawn from the fa
 ```
 
 <center><div class="container_video">
-<iframe 
-src="https://www.youtube.com/watch?v=slMkWT0bRWM"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/slMkWT0bRWM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div></center>
