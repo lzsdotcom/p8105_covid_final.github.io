@@ -29,6 +29,14 @@ navbar:
           href: vax-hesitancy-maps.html
     - text: "Report"
       href: report_new.html
+    - icon: fa-github fa-lg
+      menu:
+        - text: "Website Repo"
+          href: https://github.com/lzsdotcom/p8105_covid_final.github.io
+        - text: "Initial Project Repo 1"
+          href: https://github.com/heidil23/p8105_covid_final_project
+        - text: "Initial Project Repo 2"
+          href: https://github.com/heidil23/p8105_covid_final_project_v2
 
 output:
   html_document:
