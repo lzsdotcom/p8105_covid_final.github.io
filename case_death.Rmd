@@ -105,7 +105,7 @@ cases =
     round(104*(1.015857^before_vac), digits = 0) 
 #104 cases from US aggregation data on 2020.3.2
   
-rbind(before_vac, cases)
+binded = rbind(before_vac, cases)
 
 # and the number of increasing 
   ggplot() + 
@@ -143,9 +143,12 @@ case_vac.285to300 =
 Apparently without any public health intervention, cases are hard to slow down, but does our hypothesized bending curve with vaccine available corresponding to the actual cases number? If it is very different, how long does vaccine take its effectiveness? How does the distribution of vaccine by sex, age, and race etc. demographic characteristics impact on the effectiveness of vaccine distribution and containing cases increment? 
 
 ```{r}
-case_vac.285to300 
+#case_vac.285to300 
+
 #[101] 17570
-cases_after
+
+#cases_after
+
 #[386] 44420
 ```
 
