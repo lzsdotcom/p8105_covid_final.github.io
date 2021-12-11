@@ -1,6 +1,6 @@
 ---
 title: <h1><b><center>COVID Vaccine Hesitancy and Vaccination Trends</center></b></h1>
-author: <center>Heidi Lumish, Louis Sharp, Philip Kim, Kayla Boyer, Yujia Li<center>
+author: <center>Heidi Lumish, Louis Sharp, Philip Kim, Kaila Boyer, Yujia Li<center>
 output: 
   html_document
 ---

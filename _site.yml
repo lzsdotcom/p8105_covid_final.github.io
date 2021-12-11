@@ -7,10 +7,6 @@ navbar:
       menu:
         - text: "By Race/Sex (Dashboard)"
           href: dashboard.html
-        - text: "By Sex"
-          href: covid_deaths_bysex.html
-        - text: "By Race"
-          href: covid_deaths_by_race_education.html
         - text: "United States"
           href: covid_pre_post_vacc.html
         - text: "By State"
