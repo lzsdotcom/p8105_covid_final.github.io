@@ -27,13 +27,25 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
-## Methods 
+\
+
+## Introduction
+
+Considering the recent and ongoing COVID-19 pandemic, we are interested in understanding how COVID-19 vaccination has impacted the trajectory of the pandemic in the United States and in New York City Specifically. We are interested in comparing trends in COVID-19 cases and deaths pre- and post-vaccination in the United States. We would also like to understand patterns of vaccine hesitancy and how this has impacted vaccine uptake and COVID cases and mortality across the country. To that end, we will use data from the New York Times, Our World in Data, the Centers for Disease Control and Prevention, and the World Health Organization to explore case rates and death rates attributable to COVID-19 from January 2020 until November 2021, as well as vaccination trends and vaccine hesitancy.
 
 \
 
-## Data Sources
+## Project Inspiration
 
-### *New York Times COVID-19 dataset*
+The inspiration for this exploratory data analysis was largely drawn from the fact that we are still facing the effects of this pandemic every day in many facets of life. Although school has largely returned to in-person instruction, we are still living in a world polarized by vaccine uptake and mask-wearing opinions, with online conference and meeting tools still at the center of nearly everything we do. Because of the life-altering forces of the pandemic, we have a wealth of data and metrics related to the virus to sift through and attempt to make some sense of. Although there exist numerous dashboards and interpretations of COVID-19 data online, we were interested in how vaccine rollout has affected the spread of the virus and the case and death rates and numbers across the country and globally. We were unable to find this type of analysis easily online and figured it would be a worthwhile question to ask and answer. Comparing trends between areas with large vaccine uptake to those with lower vaccine uptake in addition to stratifying data based on dates when vaccines became readily available should shed some light on its practical effect in combating this global pandemic.
+
+\
+
+## Methods 
+
+### Data Sources
+
+#### *New York Times COVID-19 dataset*
 
 The New York Times maintains a database of COVID-19 cases and deaths in the United States. This information is pulled from multiple different data sources. The data is cleaned by the NY Times and subsequently made publicly available. This dataset was used in our initial analyses to describe trands in COVID-19 cases and deaths in the U.S. 
 
@@ -41,7 +53,7 @@ A link to the dataset can be found here: [NY Times COVID-19 data set](https://gi
 
 \
 
-### *Our World COVID-19 dataset*
+#### *Our World COVID-19 dataset*
 
 Our World In Data is a sub-project of the GLobal Change Data Lab, a non=profit organization based in the United Kingdom. The organization aims to collect data about the world's largest problems including poverty, disease, hunger, and climate change. There are 207 country profiles that allow for exploration of trends in the COVID-19 pandemic worldwide. This data was used in conjunction with CDC data to explore trends in vaccine uptake across the United States. 
 
@@ -49,7 +61,7 @@ The dataset used for this project is linked here: [Our World COVID-19 data](http
 
 \
 
-### *Centers for Disease Control and Prevention*
+#### *Centers for Disease Control and Prevention*
 
 The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 cases, deaths, and vaccination rates. We used numerous publicly available data files for this project, which are listed below:
 
@@ -61,7 +73,7 @@ The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 c
 
 \
 
-## Aims
+### Aims
 
 * To describe trends in COVID-19 cases and deaths in the U.S. and NYC from January 2020 to November 2021
 * To describe differences in COVID-19 deaths by subgroups (age, sex, race)
@@ -73,7 +85,7 @@ The Centers for Disease Control and Prevention (CDC) carefully tracks COVID-19 c
 
 \
 
-## Analytical Methods
+### Analytical Methods
 
 Detailed methodology is available on each of the results pages (see below). In general, we used three main approaches. First, we created descriptive figures to demonstrate COVID-19 case and death rates and patterns of vaccine hesitancy. Secondly, we created interactive maps to demonstrate vaccine distribution and uptake, vaccine hesitancy, and risk factors for vaccine hesitancy. Finally, we used linear regression analyses to assess risk factors for vaccine hesitancy.
 
@@ -102,16 +114,23 @@ Vaccination Data
 ## Discussion
 
 Our project aims to analyze the ongoing COVID-19 pandemic and related interventions in the United States, and therefore we included an analysis of the following:\
-1. trends in COVID-19 cases and deaths by demographic characteristics\
-2. trends in COVID-19 cases and deaths in the United States as a whole, New York state, and New York City\
-3. vaccine effectiveness through examination of cases and deaths\
-4. trends in and risk factors for vaccine hesitancy\
+  &ensp;  1. trends in COVID-19 cases and deaths by demographic characteristics\
+  &ensp;  2. trends in COVID-19 cases and deaths in the United States as a whole, New York state, and New York City\
+  &ensp;  3. vaccine effectiveness through examination of cases and deaths\
+  &ensp;  4. trends in and risk factors for vaccine hesitancy\
+
 We first describe trends in COVID-19 deaths by age, sex, and race through graphical depictions. We demonstrate, as has been previously reported, that there was a trend toward an increasing number of total deaths with age. In all age groups (except for age >=85 years) we also demonstrate that the total deaths were higher among men than among women. COVID-19 is known to cause more severe disease among men, and therefore these results are not surprising. With regard to race, our data show that the greatest number of COVID-19 deaths occurred among non-Hispanic whites, followed by Hispanics and then non-Hispanic blacks. However, it is important to note that our graph depicts *total* numbers of deaths, rather than death rates, which may not fully capture the relationship between race and COVID-19 related mortality.\
+
 To that end, we used NY Times’ COVID data to investigate the cumulative and new cases and deaths over time, from the beginning of the pandemic to December 2021. We try to plot deaths and cases over time using two different y-axes on a single graph. Although the units are modified, this example adds insight. First, when cases start to rise, deaths lag. Second, there have been three surges in our cases since the onset of COVID-19 to Jan 2021. In each successive increment, the mortality rate has risen by a small percentage. It turns out that the relationship between cases and deaths depends largely on the date, which is proved by simple regression between death on the case and time shown that the passage of time has more explanatory power than cases in predicting death. Therefore, the relationship of case and death after considering time reflects our better understanding and control over COVID-19 enabling the mortality rate to decline.\
+
 From here, we thought to stratify the data into pre- and post-vaccine availability to see in real-time how the vaccine has affected the trajectory of cases and deaths in the United States, as well as in individual states with a focus on New York state and city. Calculated by the new incidence rate with and without fully vaccinated from CDC in June 2021, we can compare our hypothesized cases without, with an accessible vaccine after 100 days, to the actual cases vaccinated after 100 days. From this split of the data into two time periods, we unfortunately saw that the cases and deaths continued to rise in the United States as a whole, possibly due to vaccine hesitancy or lack of uptake in certain states, which we investigated further in our analysis. To see if these confounding effects were real, we decided to investigate the rates and numbers in New York state more closely, along with data from each state, to get a sense of how they may be individually contributing to the national numbers and data. Sure enough, in a state like New York with less vaccine hesitancy and more uptake, we saw a reduction in the rate of cases after vaccine availability compared to the rest of the United States, although still slightly higher than before, which is a topic of speculation and debate. The rate of deaths in New York state however decreased after vaccine availability, showing through data the beneficial effects of the vaccine in areas of higher uptake and lower hesitancy.\
+
 Investigating New York City in particular showed, predictably, a similar trend to the state as a whole, likely due to the large concentration of people compared to the state, which disproportionately affects the statewide data compared to other cities in New York state. Although the actual rise in cases is not as low as the performance of our modeled vaccine effectiveness, it still shows a considerable decrease in new cases compared to a hypothesized population without vaccination. So what has impeded vaccination to be more effective in the early stage? We thought it would be interesting to see how the real-world differs from an optimal one.\
+
 Since April 2021, the vaccination rate of the total population of the United States has increased three-fold with a current rate of 60%. The trend of vaccination rate within the US has the largest increase from mid-March to July 2021, which is followed by a gentler but still positive slope until current time. Accordingly, daily vaccination rates uphold this notion by showing a peak daily vaccination rate of 0.05% in April 2021 which then tapers down to approximately 0.01% in July 2021. As we looked at vaccination rates in the US as a whole and as states/sub-groups, nothing seemed to be too out of the ordinary and aligned with what we imagined. In terms of vaccine distribution, California received by far the highest number of doses with Texas and Florida following. On the opposite side, Wyoming and Vermont received the least number of doses among the states. However, Vermont had the highest percentage of people vaccinated within the United States (72.44%), which is telling as it shows that vaccine distribution is not indicative of vaccination rates and vice versa.\
+
 In order to get a clearer understanding of the vaccination trends in the US, we decided to further our scope by looking at uptake rate. Uptake rate differs from vaccination rate in that it measures how much of the allocated vaccines were administered by state, which was calculated by dividing the total number of people fully vaccinated by the number of vaccines distributed by state. To our surprise, the uptake rate stayed constant, floating around the 40-60% rate throughout the states and time. With the exception of West Virginia and Idaho, the rate of vaccine uptake did not differ much between states as the vaccination rates did. Correspondingly, the uptake rate did not vary significantly over time either. This finding was perplexing and led us to a question of whether it was a factor of efficient vaccine dissemination/production or if it had more to do with looming vaccine hesitancy and the unsuccessful nature of health behavior promotions.\
+
 The final piece of our project was an exploration of vaccine hesitancy in the United States. While there appears to be at least some benefit with COVID-19 vaccination, there is significant reluctance to accept vaccination among some individuals in the United States. To better understand this, we explored rates of vaccine hesitancy as documented by the CDC, as well as risk factors for vaccine hesitancy. We found that there were clear trends by the state in terms of vaccine hesitancy, with the greatest rates of vaccine hesitancy observed in Montana, Wyoming, and Alaska. We found additionally that the social vulnerability index appeared to correlate with both “hesitancy” and “strong hesitancy” to accept the COVID-19 vaccine. We tested this relationship in linear regression analysis and found that social vulnerability index as a continuous measure was associated with estimated percent hesitancy to accept the COVID-19 when adjusting for the race. These findings are important in our understanding of why some individuals may be reluctant to accept the vaccine. Future studies should focus on whether there are specific elements of social vulnerability that contribute to vaccine hesitancy, and whether any of these factors are modifiable. On the vaccine hesitancy maps, we saw that there was an overlap between high social vulnerability and a high vaccine hesitancy in many regions in the United States. 
 
 
