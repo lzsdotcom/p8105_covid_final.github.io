@@ -31,7 +31,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 ## Introduction
 
-Considering the recent and ongoing COVID-19 pandemic, we are interested in understanding how COVID-19 vaccination has impacted the trajectory of the pandemic in the United States and in New York City Specifically. We are interested in comparing trends in COVID-19 cases and deaths pre- and post-vaccination in the United States. We would also like to understand patterns of vaccine hesitancy and how this has impacted vaccine uptake and COVID cases and mortality across the country. To that end, we will use data from the New York Times, Our World in Data, the Centers for Disease Control and Prevention, and the World Health Organization to explore case rates and death rates attributable to COVID-19 from January 2020 until November 2021, as well as vaccination trends and vaccine hesitancy.
+Considering the recent and ongoing COVID-19 pandemic, we are interested in understanding how COVID-19 vaccination has impacted the trajectory of the pandemic in the United States and in New York City specifically. We are interested in comparing trends in COVID-19 cases and deaths pre- and post-vaccination in the United States. We would also like to understand patterns of vaccine hesitancy and how this has impacted vaccine uptake and COVID cases and mortality across the country. To that end, we will use data from the New York Times, Our World in Data, the Centers for Disease Control and Prevention, and the World Health Organization to explore case rates and death rates attributable to COVID-19 from January 2020 until November 2021, as well as vaccination trends and vaccine hesitancy.
 
 \
 
